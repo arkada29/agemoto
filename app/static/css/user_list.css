@@ -1,0 +1,150 @@
+.navbar{
+    background-color: #db0038;
+}
+.nav-tabs{
+    width: 400px;
+}
+.user-class-pic{
+  position: absolute;
+  right: 75px;
+  top: 5px;
+  padding-right: 2%;
+}
+.user-class-level{
+  position: absolute;
+  right: 0;
+  padding-right: 2%;
+}
+.user{
+  padding-left: 10px;
+  padding-top: 10px;
+  margin: auto;      
+}
+.user img{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.upcoming-tab{
+    width: 400px;
+}
+.nav-link{
+    width: 200px;
+    color: red;
+}
+.nav-link:hover{
+    color: red;
+}
+.card{
+    margin: 1% 2%;
+}
+.container{
+    margin-top: 5%;
+}
+.total-data{
+  position: absolute;
+  right: 0;
+  top:0;
+  margin-right: 3%;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+}
+th{
+  font-size: 13px;
+  font-weight: bolder;
+}
+td{
+  font-size: 13px;
+  font-weight: lighter;
+}
+.data-table-header{
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 1%;
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+}
+.table-header{
+    flex: 10%;
+    max-width: 10%;
+    position: relative;
+    overflow: hidden;
+    margin-right: 2px;
+    margin-left: 2px;
+    font-weight: bolder;
+    /* border-right: 1px solid black; */
+}
+.data-table-body{
+    padding-top: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom:1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 1%;
+    background-color: rgba(230, 103, 29, 0.2);
+}
+.table-body{
+    flex: 10%;
+    max-width: 10%;
+    position: relative;
+    font-size: 14px;
+    /* overflow: hidden; */
+    margin-right: 2px;
+    margin-left: 2px;
+    /* border-right: 1px solid black; */
+}
+.id{
+    padding-left: 1%;
+    font-weight: bolder;
+}
+.button-delete-main{
+    flex: 10%;
+    max-width: 10%;
+    position: relative;
+    /* overflow: hidden; */
+}
+.btn-small{
+  padding: 3px 5px 5px 5px;
+  border-radius: 10px;
+}
+.btn-delete a{
+  color: white;
+}
+.button-del{
+  display: flex;
+  flex-direction: row;
+  width: 150px;
+}    
+.pop-up{
+  position: relative;
+  width: 100%;
+  margin-left: 5px;
+  display: none;
+}
+.page-item{
+    margin-top: 2%;
+    margin-left: 2px;
+}
+.page-item a{
+    color: #161B40;
+    text-decoration: none;
+    /* background-color: #f40058; */
+    border-radius: 5px; 
+    padding: 2px 7px 2px 7px;
+    margin-right: 5px;
+    border: 2px solid orangered;
+}
+@media screen and (max-width:768px) {
+    
+}
+@media screen and (max-width:600px) {
+    .table-header{
+        flex: 25%;
+        max-width: 25%;
+    }
+    .table-body{
+        flex: 25%;
+        max-width: 25%;
+    }
+}

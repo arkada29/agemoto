@@ -1,0 +1,284 @@
+  .container{
+    margin-top: 1%;
+  }
+  .dashboard-thumbnail{
+    height: 200px;
+    max-height: 200px;
+  }
+  .dashboard-thumbnail img{
+    height: 300px;
+    width: 100%;
+    background-repeat: no-repeat;
+    /* background-size: contain; */
+    object-fit: cover;
+    object-position: center;
+    background-color: rgba(34,63,90, 0.75);
+    position: relative;
+    top: -62px;
+    z-index: -1;
+  }
+  .cover{
+    position: absolute;
+    top: 0;
+    background-color: rgba(57, 58, 59, 0.75);
+    /* opacity: 1; */
+    width: 100%;
+    height: 300px;
+    z-index: -1;
+  }
+  h3{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .btn-summary{
+    margin-top: 3%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 0px 0px 0px;
+    width: 75px;
+    height: 75px;
+    margin-right: 2%;
+    position: relative;
+    text-align: center;
+    box-shadow: 0px 3px 5px orange;
+  }
+  .btn-summary p{
+    font-size: 11px;
+    margin-top: 25%;
+    font-weight: lighter;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .card-header{
+    background-color: orangered;
+    color: white;
+  }
+  .card-subtitle{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .card-body{
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .container-dashboard{
+    padding: 2% 1% 2% 1%;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    margin-right: 2.5%;
+    margin-left: 2.5%; 
+    position: relative;
+    top: -100px;
+    background-color: rgba(219, 0, 59, 0.3);
+  }
+  h5{
+    margin-left: 3%;
+    margin-bottom: 25px;
+    color: white;
+  }
+  .biodata{
+    height: fit-content;
+  }
+  .profile-body{
+    /* position: relative;
+    top: -50px; */
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 5%;
+    border-radius: 5px;
+    color: white;
+    background-color: #2b333b;
+    border: 1px solid orangered;
+    box-shadow: 0px 3px 5px #2b333b;
+  }
+  .profile-body strong{
+    font-size: 14px;
+  }
+  strong{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .profile-pic{
+    float: left;
+    margin-right: 1%;
+  }
+  .profile-pic img{    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+  .user-detail {
+    /* width: fit-content; */
+    max-width: 100%;
+  }
+  .user-detail strong{
+    background-color: #2b333b;
+    color: white;
+    padding: 5px 3px 5px 3px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-weight: lighter;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: 1px solid orangered;
+    box-shadow: 0px 3px 5px #2b333b;
+  }
+  .main-name{
+    padding-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .material-icons-outlined{
+    margin-right: 5px;
+    /* color: rgba(0, 0, 0, 0.5); */
+    color: white;
+    font-size: 14px;
+  }
+  .material-icons-outlined img{
+    width: 15px;
+    height: 15px;
+  }
+  .about-author{
+    /* background-color: #2b333b; */
+    padding: 5px 3px 5px 3px;
+    border-radius: 5px;
+  }
+  .profile{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .profile-utility{
+    flex: 65%;
+    max-width: 65%;
+    padding: 0px 5px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: fit-content; 
+  }
+  .profile-utility .card{
+    background-color: #2b333b;
+    border: 1px solid orangered;
+    box-shadow: 0px 3px 5px #2b333b;
+  }
+  .profile-data-container{
+    flex: 32%;
+    max-width: 32%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: fit-content;
+    line-height: 2em;    
+    border-radius: 5px;
+    color: white;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-data{
+    background-color: #2b333b;
+    border: 1px solid orangered;
+    box-shadow: 0px 3px 5px #2b333b;
+  }
+  .profile-data-detail{
+    flex: 100%;
+    max-width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    height: fit-content;
+    background-color: #2b333b;
+    border: 1px solid orangered;
+    box-shadow: 0px 3px 5px #2b333b;
+  }
+  .profile-data-detail a{
+    color: white;
+    background-color: #db0038;
+    border: none;
+    box-shadow: 0px 1px 3px white;
+  }
+  .profile-data-detail a:hover{
+    color: orangered;
+    background-color: white;
+    box-shadow: 2px 3px 6px orange;
+  }
+  .card-statistic{
+    margin-top: 5%;
+    color: white;
+  }
+  .profile-statistic-graphic{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .utility-icon{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .utility-icon a{
+    background-color: white;
+    color: black;
+  }
+  .utility-icon a:hover{
+    background-color: orangered;
+    color: white;
+    box-shadow: 0px 3px 5px white;
+  }
+  .card-title{
+    margin-left: 1%;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+  }
+  .profile-update{
+    margin-top: 2%;
+    margin-left: 5px;
+    background-color: #2b333b;
+  }
+  .form-label{
+    color: white;
+  }
+  .pwd-chg {
+    display: flex;
+    flex-direction: row;
+  }
+  .pwd-chg a{
+    text-decoration: none;
+    /* color: black; */
+    color: white;
+  }
+  .btn-warning{
+    position: absolute;
+    right: 20px;
+  }
+  .button-del{
+      display: flex;
+      flex-direction: row;
+      width: 150px;
+    }    
+    .pop-up{
+      position: relative;
+      width: 100%;
+      margin-left: 5px;
+      display: none;
+    }
+@media screen and (max-width: 992px) {
+}
+@media screen and (max-width: 768px) {
+    .profile-utility{
+        flex: 100%;
+        max-width: 100%;
+      }
+      .profile-data-container{
+        flex: 50%;
+        max-width: 50%;
+        margin-top: 1%;
+      }
+}    
+@media screen and (max-width: 600px) {
+    .profile-data-container{
+        flex: 100%;
+        max-width: 100%;
+        margin-top: 1%;
+      }
+      .profile-update{
+        width: 100%;
+      }
+}

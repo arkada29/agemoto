@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/simple_main_layout.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <title>Agemoto</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js" integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v13.0" nonce="orXYepVU"></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v13.0" nonce="48Wodxir"></script>
+
+  <div class="menu-header">    
+    <div class='header-page'>
+      <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{url_for('base.page_root')}}">AGEMOTO</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <span>
+                  <img src="{{url_for('static', filename='images/legend_toggle_black.svg')}}" alt="legend-toggle">
+                </span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link active" aria-current="page" href="{{url_for('base.page_root')}}">
+                      <span class='icon-toolbar'>
+                        Home
+                      </span>
+                    </a>
+                   
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post.posts')}}">
+                      <span class='icon-toolbar'>
+                        News
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="">
+                      <span class='icon-toolbar'>
+                        Top 10
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post.posts_movies', category='movie')}}">
+                      <span class='icon-toolbar'>
+                        Movies
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post.post_techno', category='technology')}}">
+                      <span class='icon-toolbar'>
+                        Technology
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post.post_others', category='others')}}">
+                      <span class='icon-toolbar'>
+                        Others
+                      </span>
+                    </a>
+                  </li> -->
+                  <li class="nav-item dropdown mr-5">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class='icon-toolbar'>
+                        News
+                      </span>
+                    </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{{url_for('post.posts')}}" align=""center>General</a></li>
+                    <li><a class="dropdown-item" href="{{url_for('post.post_techno', category='technology')}}">Technology</a></li>
+                    <li><a class="dropdown-item" href="{{url_for('post.posts_movies', category='movie')}}">Movies</a></li>
+                    <li><a class="dropdown-item" href="{{url_for('post.posts_compilation', category='compilation')}}">TOP 10</a></li>
+                    <li><a class="dropdown-item" href="{{url_for('post.post_others', category='others')}}">Others</a></li>
+                    <!-- <li><hr class="dropdown-divider"></li> -->
+                  </ul>
+                </li>
+                  <li class="nav-item dropdown mr-5">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class='icon-toolbar'>
+                          Collection
+                        </span>
+                      </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{{url_for('collection.upcoming_animes')}}" align=""center>Animes</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('collection.upcoming_games')}}">Games</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('collection.upcoming_movies')}}">Movies</a></li>
+                      <!-- <li><hr class="dropdown-divider"></li> -->
+                    </ul>
+                  </li>
+                  <div class="gaming"></div>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class='icon-toolbar'>
+                        Gaming
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='PlayStation 4')}}">PS4</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='PlayStation 5')}}">PS5</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='Xbox One')}}">Xbox One</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='Xbox Series')}}">Xbox Series X/S</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='PC Gaming')}}">PC Gaming</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='Nintendo Switch')}}">Switch</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='Android')}}">Android</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='iOs')}}">iOs</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_games', category='games', sub_cat='Others')}}">Others</a></li>
+                      <!-- <li><hr class="dropdown-divider"></li> -->
+                    </ul>
+                    
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('post.posts_anime', category='anime')}}">
+                      <span class='icon-toolbar'>
+                        Anime
+                      </span>
+                    </a>
+                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_anime', category='anime', sub_cat='Movie')}}">Movie</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_anime', category='anime', sub_cat='Series')}}">Series</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('post.posts_anime', category='anime', sub_cat='Others')}}">Others</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                    </ul> -->
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                  </li> -->
+                  
+                </ul>  
+
+                <div class="navbar-right d-flex">
+                  <div class="search-section show-search">
+                    <a href="#">
+                      <img src="{{url_for('static', filename='images/search_black_18.svg')}}" alt="search-icon">
+                    </a>                    
+                  </div>
+                  {%if current_user.is_authenticated%}
+                  {%if current_user.profile_pic != None%}
+                  <div class="user dashboard" data-toggle="tooltip" data-placement="top" title="{{current_user.username}}">
+                    <a href="{{url_for('user.dashboard', id=current_user.id)}}">
+                      <img src="{{url_for('static', filename='images/' + current_user.profile_pic)}}" alt="user-profile">
+                    </a>
+                  </div>
+                  {%else%}
+                  <div class="user dashboard" data-toggle="tooltip" data-placement="top" title="{{current_user.username}}">
+                    <a href="{{url_for('user.dashboard', id=current_user.id)}}">
+                      <img src="{{url_for('static', filename='images/wolf_img.jpg')}}" alt="user-profile-alternate">
+                    </a>
+                  </div>
+                  {%endif%}
+                  <div class="user logout">
+                      <img alt="logout-icon" src="{{url_for('static', filename='images/logout.svg')}}">
+                  </div>
+                  {%else%}
+                  <div class="user login">
+                      <a href="{{url_for('user.login')}}">
+                          <img alt="login-icon" src="{{url_for('static', filename='images/face_black.svg')}}" style="width: 20px; height: 20px;">
+                      </a>
+                  </div>                      
+                  {%endif%}
+                </div>                
+              </div>  
+              
+        </div>
+      </nav>
+    </div> 
+  </div>
+        
+    <div class="bg">
+        {%block content%}
+        {%endblock%}
+    </div>
+
+    <footer class="text-center text-lg-start text-white footer-main">
+        <!-- Grid container -->
+        <div class="container footer-body">
+          <!--Grid row-->
+          <div class="footer-body-container">
+            <!--Grid column-->
+            <div class="body-container-1">
+              <a href="{{url_for('base.page_root')}}">
+                <span class="ms-5 footer-site-name">AGEMOTO</span><br>
+              </a>              
+              <ul class="icon-media list-unstyled d-flex flex-row justify-content-left mt-3" style="margin-left: 40px;">
+                <li>
+                  <a class="text-white px-2" href="#!">
+                    <i class="fab fa-facebook-square"> fb</i>
+                  </a> 
+                </li>
+                <li>
+                  <a class="text-white px-2" href="#!">
+                    <i class="fab fa-instagram"> ig</i>
+                  </a>
+                </li>
+                <li>
+                  <a class="text-white ps-2" href="#!">
+                    <i class="fab fa-youtube"> yt</i>
+                  </a>
+                </li>
+              </ul>
+              <div class="footer-about">
+                <span class="text-left ms-5">
+                  <a href="">ada-soft@gmail.com</a>
+                </span>
+              </div>
+  
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="body-container-4">
+              <h5 class="text-right text-uppercase mb-4 me-5 footer-contact" style="text-align: right;">Who are we</h5>
+              <ul class="detail-contact list-unstyled d-flex flex-column align-items-end justify-content-end me-5">
+                <li>
+                  <a href="">
+                    <a href="{{url_for('about.about_contact')}}">
+                      <p>ABOUT</p>
+                    </a>
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <p>Privacy Policy</p>
+                  </a>                  
+                </li>
+                <li>
+                  <a href="">
+                    <p>Contact</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+          <div class="footer-bottom ms-5">
+            <div class="footer-web-title mt-3">
+              <a class="text-white" href="https://mdbootstrap.com/">© 2022 ADA DEVELOPER</a>
+            </div>
+            <!-- <div class="footer-developer">
+              <a class="text-white" href="https://mdbootstrap.com/">ADA DEVELOPER</a>
+            </div> -->
+          </div>
+          
+        </div>
+      </footer>
+
+      <div class="search-table">
+        <div class="container search-box">
+            <div class="row-section">                
+                <div class="select-section">
+                    <select name="selectcategory" id="" class="selectcategory">
+                        <option value="all">Select</option>
+                        <option value="post">News</option>
+                        <option value="movies">Movies</option>
+                        <option value="anime">Anime</option>
+                        <option value="games">Games</option>
+                    </select>
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <div class="search-section">                    
+                      <input type="text" name="query2" id="search_text" class="form-control" placeholder="Search Agemoto">
+                </div>                 
+                <div class="button-close-section" >
+                    <div class="btn btn-sm btn-danger close-search">X</div>
+                </div>
+            </div>
+        </div>
+        <div id="result" class="container result"></div>
+      </div>
+
+      <div class="logout-confirm">
+        <div class="logout-confirm-message">
+          <span>Are you sure boy ?</span>
+        </div>
+        <div class="logout-confirm-button">
+          <div class="logout-yes">
+            <a href="{{url_for('user.logout')}}">
+              <button type="button" class="button-danger">
+                  Yes
+              </button>
+            </a>
+          </div>
+          <div class="logout-no">
+            <button type="button" class="button-info">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script>
+$(".show-search").click(function(){
+    $('.search-table').slideDown()//css('display','block')
+});
+$(".close-search").click(function(){
+    $('.search-table').slideUp()//css('display','none')
+
+});
+
+$('.logout').click(function(){
+  if($(".logout-confirm").is(':visible')){
+    $('.logout-confirm').slideUp()//css('display', 'none')
+  }else{
+    $('.logout-confirm').slideDown()//css('display', 'block')
+  }
+});
+
+$('.logout-no').click(function(){
+  $('.logout-confirm').slideUp()
+});
+$(window).scroll(function(){
+  if($(window).scrollTop()>=30){
+    $('.logout-confirm').slideUp()
+  }
+});   
+</script>
+<script>
+  $( document ).ready(function() {
+      // console.log($(window).scrollTop())
+      function load_data(query2)
+      {
+          var search = $('#search_text').val()
+          var category = $('.selectcategory').val()
+          var search_data = [
+              {query2:query2},
+              {'category':category}
+          ];
+          $.ajax({
+              url:"/ajaxlivesearch",
+              method:"POST",
+              // data:search_data,
+              contentType: "application/json;charset=utf-8",
+              traditional: true,
+              dataType: 'json',
+              data: JSON.stringify(search_data),
+              // data:{query2:query2},
+              success:function(data)
+              {
+                  $('#result').html(data);
+                  $("#result").append(data.htmlresponse);
+              }
+              
+          });
+      }
+  
+      function blank(){
+          $('#result').html('')
+      }
+  
+      $('#search_text').keyup(function(event){
+          var search = $(this).val();
+          var category = $('.selectcategory').val()
+          if(search != ''){
+            if (search != '' && event.keyCode==13){
+            
+            var protocol = window.location.protocol
+            var host = window.location.host
+              if (category == 'movies'){
+                window.location = protocol + "//" + host + "/search_detail/" + category + "/" + search
+              } else if (category == 'anime') {
+                window.location = protocol + "//" + host + "/search_detail/" + category + "/" + search
+              }  else if (category == 'post') {
+                window.location = protocol + "//" + host + "/search_detail/" + category + "/" + search
+              } else if (category == 'games') {
+                window.location = protocol + "//" + host + "/search_detail/" + category + "/" + search
+              } else {
+                window.location = protocol + "//" + host + "/search_detail/" + "all" + "/" + search
+              }
+            }else{
+              load_data(search);
+            }
+          }
+          else{
+              blank()
+          }
+          
+      });
+  
+  });
+  </script>
+</html>

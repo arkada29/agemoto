@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Collection Add</title>
+</head>
+<style type="text/css">
+    .container{
+        margin-top: 5%;
+        background-color: white;
+        padding: 25px;
+        border-radius: 10px;
+    }
+    body{
+        background-color: #161b40;
+    }
+    .navbar{
+        background-color: #db0038;
+    }
+    .nav-link{
+        width: fit-content;
+        color: red;
+    }
+    .nav-link:hover{
+        color: red;
+    }
+    .nav-tabs{
+        border-bottom: none;
+    }
+    .user-class-pic{
+      position: absolute;
+      right: 150px;
+      top: 5px;
+      padding-right: 2%;
+    }
+    .user-class-name{
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      padding-right: 2%;
+    }
+    .user{
+    padding-left: 10px;
+    padding-top: 6px;
+    margin: auto;      
+    }
+    .user img{
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .form-desc{
+      color: orange;
+    }
+    @media screen and(max-width:992px) {
+      
+    }
+    @media screen and(max-width:768px) {
+      
+    }
+    @media screen and(max-width:600px) {
+      
+    }
+</style>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                {%if current_user.profile_pic != None%}
+              <div class="user dashboard" data-toggle="tooltip" data-placement="top" title="{{current_user.username}}">
+                <a href="{{url_for('user.dashboard', id=current_user.id)}}">
+                  <img src="{{url_for('static', filename='images/' + current_user.profile_pic)}}" alt="">
+                </a>
+              </div>              
+              {%else%}
+              <div class="user dashboard" data-toggle="tooltip" data-placement="top" title="{{current_user.username}}">
+                <a href="{{url_for('user.dashboard', id=current_user.id)}}">
+                  <img src="{{url_for('static', filename='images/no-image.jpg')}}" alt="">
+                </a>
+              </div>
+              {%endif%}
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('user.dashboard', id=current_user.id)}}" style="color: white; width: fit-content;">{{current_user.name}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('collection.upcomings')}}" style="color: white;">UPCOMING DATA</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container col-md-8">
+        {%for message in get_flashed_messages()%}
+        <div class="alert alert-success alert-dismissible show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>    
+        {%endfor%}
+        <form action="" method="post" enctype="multipart/form-data">
+            <!-- {{form.hidden_tag()}} -->
+            {{form.csrf_token() }}
+            {{form.name.label(class='form-label')}}
+            {{form.name(class='form-control')}}
+            <br>
+            {{form.date_released.label(class='form-label')}}
+            {{form.date_released(class='form-control')}}
+            <br>   
+            {{form.cover_picture.label(class='form-label')}} <span class="form-desc">(500x700)</span>
+            {{form.cover_picture(class='form-control')}}
+            <br>   
+            {{form.thumbnail_picture.label(class='form-label')}} <span class="form-desc">(1280x720)</span> 
+            {{form.thumbnail_picture(class='form-control')}}
+            <br>      
+            {{form.platform.label(class='form-label')}} <span class="form-desc">(e.g: XONE, PS / OVA, Movie)</span> 
+            {{form.platform(class='form-control')}}
+            <br> 
+            {{form.genre.label(class='form-label')}} <span class="form-desc">(e.g: Action, RPG)</span> 
+            {{form.genre(class='form-control')}}
+            <br>   
+            {{form.producer.label(class='form-label')}} 
+            {{form.producer(class='form-control')}}
+            <br>  
+            {{form.series.label(class='form-label')}}
+            {{form.series(class='form-control')}}
+            <br>  
+            {{form.synopsis.label(class='form-label')}}
+            {{form.synopsis(class='form-control')}}
+            <br>   
+            <div id="duration">
+              {{form.duration.label(class='form-label')}} 
+              {{form.duration(class='form-control')}}
+            </div>            
+            <br>
+            {{form.categories.label(class='form-label')}} <span class="form-desc">(Don't forget this)</span>
+            <select {{form.categories(class="form-control category")}}>
+            {%for g in group_cat%}
+                <option>{{g.category}}</option>                      
+            {%endfor%}                         
+            </select>
+            <br> 
+            *) please fill the detail for category you choose above. (eg. anime then fill anime section, no need for others)
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active upcoming-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Anime*
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link upcoming-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    Games*
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link upcoming-link" id="movies-tab" data-bs-toggle="tab" data-bs-target="#movies" type="button" role="tab" aria-controls="movies" aria-selected="false">
+                    Movies*
+                  </button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                </li> -->
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="card tab-card">
+                    <!-- <div class="card-header">
+                    </div> -->
+                    <ul class="list-group list-group-flush upcoming-tab">
+                      <li class="list-group-item">    
+                        <!-- <h1>Users List: </h1> -->
+                        <br>
+                        <div class="shadow p-3 mb-6 bg-body rounded">
+                            <div id="studio">
+                                {{form.studio.label(class='form-label')}} 
+                                {{form.studio(class='form-control')}}
+                            </div>             
+                            <br> 
+                            <div id="episode">
+                                {{form.episode.label(class='form-label')}} 
+                                {{form.episode(class='form-control')}}
+                            </div>              
+                            <br>      
+                            <div id="source">
+                                {{form.source.label(class='form-label')}} 
+                                {{form.source(class='form-control')}}
+                            </div>           
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card" style="width: 600px;">
+                    <!-- <div class="card-header">
+                    </div> -->
+                    <ul class="list-group list-group-flush upcoming-tab">
+                      <li class="list-group-item">
+                        <!-- <h1>Login</h1> -->
+                        <br>
+                        <div class="shadow p-3 mb-6 bg-body rounded">
+                            <div id="engine">
+                                {{form.engine.label(class='form-label')}} 
+                                {{form.engine(class='form-control')}}
+                            </div>              
+                            <br>  
+                            <div id="mode">
+                                {{form.mode.label(class='form-label')}} 
+                                {{form.mode(class='form-control')}}
+                            </div>             
+                            <br>   
+                            <div id="publishers">
+                                {{form.publishers.label(class='form-label')}}
+                                {{form.publishers(class='form-control')}}
+                            </div>           
+                            <br>  
+                            <div id="developers">
+                                {{form.developers.label(class='form-label')}}
+                                {{form.developers(class='form-control')}}
+                            </div>            
+                            <br>
+                      </li>
+                    </ul>
+                </div>
+            </div>     
+            <div class="tab-pane fade" id="movies" role="tabpanel" aria-labelledby="movies-tab">
+              <div class="card" style="width: 600px;">
+                  <!-- <div class="card-header">
+                  </div> -->
+                  <ul class="list-group list-group-flush upcoming-tab">
+                    <li class="list-group-item">
+                      <!-- <h1>Login</h1> -->
+                      <br>
+                      <div class="shadow p-3 mb-6 bg-body rounded">
+                          (if more than one, separate with (,))
+                          <br>
+                          <div id="starring">
+                              {{form.starring.label(class='form-label')}} 
+                              {{form.starring(class='form-control')}}
+                          </div>              
+                          <br>  
+                          <div id="budget">
+                            {{form.budget.label(class='form-label')}}
+                            {{form.budget(class='form-control')}}
+                          </div>            
+                          <br>
+                          <div id="boxoffice">
+                              {{form.boxoffice.label(class='form-label')}} 
+                              {{form.boxoffice(class='form-control')}}
+                          </div>             
+                          <br>   
+                          <div id="language">
+                              {{form.language.label(class='form-label')}}
+                              {{form.language(class='form-control')}}
+                          </div>           
+                          <br>  
+                          <div id="mpaa">
+                            {{form.mpaa.label(class='form-label')}}
+                            {{form.mpaa(class='form-control')}}
+                          </div>            
+                          <br>
+                          <!-- <div id="duration">
+                            {{form.duration.label(class='form-label')}} 
+                            {{form.duration(class='form-control')}}
+                          </div>
+                          <br>  -->
+                          <div id="based">
+                            {{form.based.label(class='form-label')}}
+                            {{form.based(class='form-control')}}
+                          </div>            
+                      <br>
+                    </li>
+                  </ul>
+              </div>
+            </div>                                                             
+          <br>
+          {{form.submit(class="btn btn-secondary")}}
+        </form>
+        
+   <script type="text/javascript" src="{{ url_for('static', filename='tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+    tinymce.init({
+        selector: '#synopsis',
+        relative_urls: false,
+        plugins: [
+            'advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality template paste textcolor codesample'
+        ],
+        imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | codesample',
+       
+        codesample_languages: [
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'Processing', value: 'processing' },
+            { text: 'Python', value: 'python' }
+        ],
+        width: "100%",
+        height: '500px'
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

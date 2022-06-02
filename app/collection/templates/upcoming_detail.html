@@ -1,0 +1,178 @@
+{%extends "base.html"%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+.post-thumbnail img{
+    background-repeat: no-repeat;
+    /* background-size: contain; */
+    object-fit:cover;
+    object-position: center;
+    position: relative;
+    height: 300px;
+    top: -62px;
+    z-index: -1;
+    }
+    .cover{
+    position: absolute;
+    top: 0;
+    background-color: rgba(57, 58, 59, 0.75);
+    /* opacity: 1; */
+    width: 100%;
+    height: 300px;
+    z-index: -1;
+    }
+    .upcoming-detail{
+      display: flex;
+      margin-top: 1%;
+      flex-direction: row;
+      margin-bottom: 5%;
+    }
+    .ud-picture img{
+      border-radius: 5px;
+      width: 200px; 
+      height: 300px;
+    }
+    .ud-updated{
+      background-color: #db0038;
+      border-radius: 5px;
+      color: white;
+      font-size: 10px;
+    }
+    .upcoming-title{
+        font-weight: 700;
+        width: 200px; 
+    }
+    .upcoming-synopsis{
+        border-bottom: 1px solid rgba(57, 58, 59, 0.2);
+        font-size: 14px;
+    }
+    .ud-platform{
+        background-color: blueviolet;
+        border-radius: 5px;
+        padding: 3px 10px;
+        color: white;
+        margin-right: 5px;
+    }
+    .ud-category{
+        background-color: brown;
+        border-radius: 5px;
+        padding: 3px 10px;
+        color: white;   
+        font-size: 13px;
+        font-weight: lighter;
+    }
+    .table, tr, td{
+      border: none;
+      font-size: 13px;
+    }
+</style>
+<body>
+  <div class="post-thumbnail">
+      {%if upcoming.thumbnail_picture != None%}
+      <img src="{{url_for('static', filename='images/' + upcoming.thumbnail_picture)}}" alt="" style="width: 100%;">
+      <div class="cover"></div>
+      {%else%}
+      <img src="{{url_for('static', filename='images/game-characters.png')}}" alt="" style="width: 100%;">
+      <div class="cover"></div>
+      {%endif%}
+  </div>
+  <div class="container upcoming-detail">
+      <div class="col-md-3 ud-picture">
+        {%if upcoming.cover_picture != None%}
+        <img src="{{url_for('static', filename='images/' + upcoming.cover_picture)}}" alt="">
+        {%else%}
+        <img src="{{url_for('static', filename='images/wolf_img.jpg')}}}" alt="">
+        {%endif%}
+        <div class="upcoming-title">
+          {{upcoming.name}}<br>
+          <span class="ud-category">{{upcoming.category_upcoming.category}}</span>          
+        </div>
+      </div>
+      <div class="col-md-9 ud-info">
+        <!-- <span class="title-synopsis">Synopsis</span><br>
+        <span class="s">Lorep ipsum bla bla bla</span><br>
+        <span>Developer :</span><br>
+        <span>Publisher :</span><br>
+        <span>Duration :</span><br>
+        <span>Release Date :</span><br>
+        <span>Genre :</span> -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Synopsis</th>
+              <th>
+                <div class="ud-updated" id="{{upcoming.updated}}" >
+                  {%if upcoming.updated%}
+                  <span>{{upcoming.updated}}</span>
+                  {%else%}
+                  <span></span>
+                  {%endif%}
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row" class="upcoming-synopsis"><span>{{upcoming.synopsis|safe}}</span></td>
+            </tr>
+            <tr><td><span><strong>Release Date</strong> : {{upcoming.date_released}}</span></td></tr>
+            <tr><td><span><strong>Genre</strong> : {{upcoming.genre}}</span></td></tr>
+            <tr><td><span><strong>Director</strong> : {{upcoming.producer}}</span></td></tr>
+            <tr><td><span><strong>Series</strong> : {{upcoming.series}}</span></td></tr>
+            {%if upcoming.category_upcoming.category == 'Games'%}
+            <tr><td><strong>Developer</strong>  : {{upcoming.developer}}</td></tr>
+            <tr><td><strong>Publisher</strong> : {{upcoming.publisher}}</td></tr>
+            <tr><td><span><strong>Engine</strong> : {{upcoming.engine}}</span></td></tr>
+            <tr><td><span><strong>Mode</strong> : {{upcoming.mode}}</span></td></tr>
+            {%elif upcoming.category_upcoming.category == 'Anime'%}
+            <tr><td><span><strong>Episode</strong> : {{upcoming.episode}}</span></td></tr>
+            <tr><td><span><strong>Duration</strong> : {{upcoming.duration}}</span></td></tr>
+            <tr><td><span><strong>Source</strong> : {{upcoming.source}}</span></td></tr>
+            <tr><td><span><strong>Studio</strong> : {{upcoming.studio}}</span></td></tr>
+            {%else%}
+            <tr><td><span><strong>Starring</strong> : {{upcoming.starring}}</span></td></tr>
+            <tr><td><span><strong>Duration</strong> : {{upcoming.duration}}</span></td></tr>
+            <tr><td><span><strong>MPAA</strong> : {{upcoming.mpaa}}</span></td></tr>
+            <tr><td><span><strong>Based On</strong> : {{upcoming.based}}</span></td></tr>
+            <tr><td><span><strong>Budget</strong> : {{upcoming.budget}}</span></td></tr>
+            <tr><td><span><strong>Box Office</strong> : {{upcoming.boxoffice}}</span></td></tr>
+            {%endif%}
+            
+            <tr><td>
+            {%for u in upcoming.platform.split(',')%}
+            <span class="ud-platform">
+                {{u}}            
+            </span>
+            {%endfor%}
+            </td></tr>
+            
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {{update}}
+</body>
+</html>
+<script>
+  $('.post-thumbnail').css('display','none')
+  $(document).ready(function(){
+    $('.post-thumbnail').slideDown(1000)
+    var getUpdate = document.querySelector('.ud-updated')
+    var updateValue = getUpdate.getAttribute('id') 
+    if (updateValue != 'None'){
+      $('.ud-updated').css('padding', '3px 6px')
+    }else{
+      $('.ud-updated').css('padding', '0px')
+    }
+  });
+
+</script>
+{%endblock%}

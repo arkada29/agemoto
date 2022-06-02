@@ -1,0 +1,136 @@
+{%extends "base.html"%}
+{%block content%}
+<style>
+    .search-table-1{
+        width: 100%;
+        height: 100%;
+        z-index: 1; 
+        /* display: none; */
+    }
+    .search-table-1{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .search-section{
+        position: relative;
+        overflow: hidden;
+        flex: 49%;
+        max-width: 49%;
+    }
+    #result-1{
+        position: relative;
+        margin-left: 2%;
+        flex: 40%;
+        max-width: 40%;
+        z-index: 1;
+    }
+</style>
+
+<div class="container">
+    {%for message in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+        {%endfor%}
+
+    <h1>Add Post</h1>
+    <br>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <form method="post" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        {{form.title.label(class='form-label')}}
+        {{form.title(class='form-control')}}
+        <br>
+        {{form.hidden_tag()}}
+        {{form.slug.label(class='form-label')}}
+        {{form.slug(class='form-control')}}
+        <br>
+        {{form.post_thumbnail.label(class='form-label')}}
+        {{form.post_thumbnail(class='form-control')}}
+        <br>
+        {{form.hidden_tag()}}
+        {{form.content.label(class='form-label')}}
+        {{form.content(class='form-control', rows="5")}}
+        <br>
+        {{form.category.label(class='form-label')}}
+        <select {{form.category(class="form-control category")}}>
+        {%for g in group_cat%}
+            <option>{{g.category}}</option>           
+        {%endfor%}             
+        </select>
+        <br> 
+        {{form.description.label(class='form-label')}}
+        {{form.description(class='form-control')}}
+        <br>
+        {{form.platform.label(class='form-label')}} (e.g: PS4, XONE / OVA, Series)
+        {{form.platform(class='form-control')}}
+        <br>
+        {{form.post_upcoming.label(class='form-label')}}
+        <!-- {{form.post_upcoming(class="form-control post_upcoming")}} -->
+        <!-- <select {{form.post_upcoming(class="form-control post_upcoming")}} data-live-search="true">
+        {%for u in upcoming%}
+            <option>{{u.name}}</option>           
+        {%endfor%}             
+        </select> -->
+        <!-- <select name="car_brand" data-live-search="true" id="car_brand" class="form-control" title="Select Car Brand"> 
+        {%for u in upcoming%}
+            <option value="{{u.name}}">{{u.name}}</option>
+        {%endfor%} -->
+        <div class="search-table-1">
+            <div class="search-section">                    
+                <input type="text" name="query" id="search_text-1" class="form-control" placeholder="Search Agemoto">
+            </div>                 
+            <div id="result-1" class="result"></div>
+        </div>
+        <br>
+        {{form.tags.label(class='form-label')}} 
+        {{form.tags(class='form-control')}}
+        <br>
+        {{form.news_type.label(class='form-label')}} 
+        <select {{form.news_type(class="form-control post_upcoming")}}>
+            <option value="favourite">Favourite</option> 
+            <option value="trending">Trending</option> 
+            <option value="none">None</option>                    
+        </select>
+        <br>
+        {{form.submit(class="btn btn-secondary")}}
+    </form>
+ 
+    </div>
+    
+    
+<script type="text/javascript" src="{{ url_for('static', filename='tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+    tinymce.init({
+        selector: '#content',
+        relative_urls: false,
+        plugins: [
+            'advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality template paste textcolor codesample'
+        ],
+        imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify blockquote | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | codesample',
+        images_upload_url: "{{ url_for('post.imageuploader')}}",
+        automatic_uploads: true,
+        images_reuse_filename: false,
+        images_upload_base_path: '/static/uploads',
+        codesample_languages: [
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'Processing', value: 'processing' },
+            { text: 'Python', value: 'python' }
+        ],
+        width: "100%",
+    });
+</script>
+<script src="{{url_for('static', filename='js/collectionSearch.js')}}"></script>
+
+
+
+
+{%endblock%}

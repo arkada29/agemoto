@@ -1,0 +1,281 @@
+{%extends "base.html"%}
+{%block content%}
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
+{%if current_user.profile_pic != None%}
+    <div class="dashboard-thumbnail">
+      <img src="{{url_for('static', filename='images/' + current_user.profile_pic)}}" alt="">
+      <div class="cover"></div>
+    </div>
+    {%else%}
+    <div class="dashboard-thumbnail">
+      <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="">
+      <div class="cover"></div>
+    </div>
+{%endif%}
+<div class="container-dashboard">
+  <h5>Welcome back, <strong>{{session['user']}}</strong></h5>
+  <div class="container biodata">
+  
+      <div class="profile-body">
+        {% if current_user.profile_pic %}
+      <div class="profile-pic">
+        <img src="{{url_for('static', filename='images/'+current_user.profile_pic)}}" alt="" 
+        style="height: 100px; width: 100px; border-radius: 15%;">
+      </div>
+      {%else%}
+      <div class="profile-pic">
+        <img src="{{url_for('static', filename='images/wolf_img.jpg')}}" alt="" style="height: 100px; width: 100px; border-radius: 15%;">
+      </div>
+      {%endif%}
+        <div class="user-detail">
+          <span class="main-name">{{current_user.name}}</span>
+          <!-- <br><br> -->
+          <p>
+            <span class="material-icons-outlined">
+              <img src="{{url_for('static', filename='images/account_circle_white.svg')}}" alt="">
+              {{current_user.username}}
+            </span>
+            <span class="material-icons-outlined">
+              <img src="{{url_for('static', filename='images/assignment_ind_white.svg')}}" alt="">
+              {{current_user.id}}
+            </span>
+            <span class="material-icons-outlined">
+              <img src="{{url_for('static', filename='images/email_white.svg')}}" alt="">
+              {{current_user.email}}
+            </span>
+            <span class="material-icons-outlined">
+              <img src="{{url_for('static', filename='images/badge_white.svg')}}" alt="">
+              {{current_user.level}}
+            </span>
+            <span class="material-icons-outlined">
+              <img src="{{url_for('static', filename='images/calendar_today_white.svg')}}" alt="">
+              {{current_user.date_added}}
+            </span>
+            <br>
+            <span class="about-author">
+              {{current_user.about_author}}
+            </span>
+            <br>
+          </p>
+          
+          
+          <br>
+        <!-- <strong>Username </strong>{{current_user.username}} -->
+        <!-- <strong>User Id</strong>{{current_user.id}}<br> -->
+        <!-- <strong>Email </strong>{{current_user.email}}<br> -->
+        <!-- <strong>Level </strong>{{current_user.level}}<br>
+        <strong>Date Join </strong>{{current_user.date_added}}<br> -->
+        {%for i, j in count_user_comment%}               
+          {%if j == current_user.id%}
+            <strong>Comments : </strong>{{i}} 
+          {%else%}
+            <strong>Comments : </strong> 0
+          {%endif%}
+        {%endfor%}
+        </div>
+              
+      </div>
+  </div>
+  <div class="container profile">
+    <div class="profile-utility">
+      <div class="card">
+        <div class="card-header" style="background-color: orange;">
+            Admin Info and Tools 
+        </div>
+        <div class="card-body utility-icon">        
+          <a href="{{url_for('collection.upcomings')}}" class="btn btn-small btn-summary" data-toggle="tooltip" data-placement="top" title="Upcoming Data List">
+            <i class='fas fa-book-open fa-xl' style='color: red'></i>
+            <p>Collection</p>
+          </a>
+          <br>        
+          <a href="{{url_for('post.post_list')}}" class="btn btn-small btn-summary" data-toggle="tooltip" data-placement="top" title="Post Data List">
+            <i class='fas fa-newspaper fa-xl' style='color: #f3da35'></i>
+            <p>Post</p>
+          </a>
+          <br>
+          <a href="{{url_for('comment.comment_list')}}" class="btn btn-small btn-summary" data-toggle="tooltip" data-placement="top" title="User Data List">
+            <i class='fas fa-comment-alt fa-xl' style='color: green;'></i>
+            <p>Comment</p>
+          </a>
+          <br>
+          {%if current_user.level == 'Admin'%}
+          <a href="{{url_for('user.user_list')}}" class="btn btn-small btn-summary" data-toggle="tooltip" data-placement="top" title="User Data List">
+            <i class='fas fa-user fa-xl' style='color: blue'></i>
+            <p>User</p>
+          </a>
+          <br>
+          {%endif%}
+        </div>
+        <div class="card-body card-statistic">
+          <h4 class="card-subtitle mb-2 text-muted">INFO</h4>
+          Post : <strong>{{count_post|length}}</strong>              
+          <br> 
+          Users : <strong>{{count_user|length}}</strong> 
+          <br>
+          Comments : <strong>{{count_comment|length}}</strong>
+          <br>
+          Upcoming : <strong>{{count_upc|length}}</strong>          
+        </div>
+      </div>
+    </div>
+    
+    <div class="profile-data-container">
+      <div class="profile-data">
+        <canvas id="myChart"></canvas>
+      </div>
+      <div class="profile-data-detail">
+        <a href="{{url_for('user.statisticDetail')}}" class="btn btn-small btn-info">
+          Statistic Detail
+        </a>
+      </div>      
+    </div>
+
+    <div class="profile-statistic-graphic">
+      <div class="post-graphic"></div>
+      <div class="user-graphic"></div>
+      <div class="upc-graphic"></div>
+      <div class="comment-graphic"></div>
+    </div>
+
+    
+  
+    <div class="card col-md-6 profile-update">
+      <div class="card-header" style="background-color: orange;">
+          Update Profile
+      </div>
+      <div action="/dashboard/{{current_user.id}}" class="card-body">
+          <form method="post" enctype="multipart/form-data">
+              {{form.hidden_tag()}}
+              {{form.name.label(class='form-label')}}
+              {{form.name(class='form-control', value=name_to_update.name)}}
+              <br>
+              {{form.username.label(class='form-label')}}
+              {{form.username(class='form-control', value=name_to_update.username)}}
+              <br>
+              {{form.email.label(class='form-label')}}
+              {{form.email(class='form-control', value=name_to_update.email)}}
+              <br>
+              {%if current_user.level == 'Admin'%}
+                {{form.level.label(class='form-label')}}
+                {{form.level(class='form-control', value=name_to_update.level)}}
+                <br>
+              {%else%}
+                {{form.level.label(class='form-label')}}
+                <input name="level" class="form-control" id="level" type="text" value="{{current_user.level}}" readonly="true">
+                <br>
+              {%endif%}
+              {{form.about_author.label(class='form-label')}}
+              {{form.about_author(class='form-control', value=name_to_update.about_author)}}
+              <br>
+              {{form.profile_pic.label(class='form-label')}}
+              {{form.profile_pic(class='form-control', value=name_to_update.profile_pic)}}
+              <br>
+              <div class="pwd-chg">
+                {{form.submit(class="btn btn-secondary btn-small")}}  
+              </div>                
+              <br>
+              <br>
+                    
+          </form>
+      </div>
+    </div>
+    
+     
+  <br><br>
+  </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  //function graphic
+  const data = {
+      labels : {{pieLabel|safe}},//year_product.filter(n=>n),
+      datasets:[{
+          label:'Posting dataset',
+          data:{{pieData|safe}},//{{post_count|safe}},
+          backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)'
+                          ],
+          borderColor:'rgb(255,99,132)',
+          borderWidth:1,
+          // borderColor:'#777',
+          // hoverBorderWidth:3,
+          hoverBorderColor:'#000',
+      }]
+  };
+
+  const options = {
+      // responsive:false,
+      maintainAspectRatio: false,
+      plugins: {
+          title: {
+              display: true,
+              text: 'Data Statistic',
+              fontSize:'12',
+              position:'left'
+          },
+          subtitle: {
+              display: true,
+              text: '(In Percent)',
+              font: {
+                      size: 10
+                  },
+              padding:5
+          },
+          legend: {
+              display:true,
+              position:'right',
+              // boxWidth = 20
+              labels: {
+                  // This more specific font property overrides the global property
+                  font: {
+                      size: 8
+                  },
+                  boxWidth:10,
+                  color:'white'
+              },
+          },
+          datalabels:{
+             color:'white'
+          }
+      
+      },
+      // scales: {
+      //     y: {
+      //         stacked: false,
+      //         grid: {
+      //             display: false,
+      //             color: "rgba(255,99,132,0.2)"
+      //         }
+      //     },
+      //     x: {
+      //     grid: {
+      //         display: false
+      //         },
+      //     },
+          // labels: {
+          //         // This more specific font property overrides the global property
+          //     font: {
+          //         size: 14
+          //     }
+          // }
+      // }
+
+  }
+
+  const config = {
+      type:'doughnut',
+      data:data,
+      options:options,
+      plugins: [ChartDataLabels]
+  }
+
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+{%endblock%}

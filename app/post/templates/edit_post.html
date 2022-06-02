@@ -1,0 +1,122 @@
+{%extends "base.html"%}
+{%block content%}
+<style type="text/css">
+    .container{
+        margin-top: 5%;
+    }
+    .search-table-1{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .search-section{
+        position: relative;
+        overflow: hidden;
+        flex: 49%;
+        max-width: 49%;
+    }
+    #result-1{
+        position: relative;
+        margin-left: 2%;
+        flex: 40%;
+        max-width: 40%;
+        z-index: 1;
+    }
+</style>
+<div class="container"> 
+    {%for message in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endfor%}
+    <div action="/posts/edit/{{edit.id}}" class="shadow p-3 mb-5 bg-body rounded">
+        <form method="post" enctype="multipart/form-data">
+            <!-- {{form.hidden_tag()}} -->
+            {{ form.csrf_token() }}
+            {{form.title.label(class='form-label')}}
+            {{form.title(class='form-control', value=edit.title)}}
+            <br>
+            {{form.slug.label(class='form-label')}}
+            {{form.slug(class='form-control', value=edit.slug)}}
+            <br>
+            {{form.post_thumbnail.label(class='form-label')}}
+            {{form.post_thumbnail(class='form-control', value = edit.thumbnail)}}
+            <br>
+            {{form.content.label(class='form-label')}}
+            {{form.content(class='form-control', value=edit.content, rows="10")}}
+            <br>
+            {{form.category.label(class='form-label')}}
+            <select {{form.category(class="form-control")}}>
+            {%for g in group_cat%}
+                <option>{{g.category}}</option>            
+            {%endfor%}                
+            </select>
+            <br>
+            {{form.description.label(class='form-label')}}
+            {{form.description(class='form-control', value=edit.description)}}
+            <br>
+            {{form.platform.label(class='form-label')}}
+            {{form.platform(class='form-control', value=edit.platfrom)}}
+            <br>
+            {{form.post_upcoming.label(class='form-label')}}
+            <!-- <select {{form.post_upcoming(class="form-control post_upcoming")}}>
+            {%for u in upcoming%}
+                <option>{{u.name}}</option>           
+            {%endfor%}             
+            </select> -->
+            <div class="search-table-1">
+                <div class="search-section">                    
+                    <input type="text" name="query" id="search_text-1" class="form-control" placeholder="Search Agemoto">
+                </div>                 
+                <div id="result-1" class="result"></div>
+            </div>
+            <br>
+            {{form.tags.label(class='form-label')}} (max. 200 characters)
+            {{form.tags(class='form-control', value=edit.tags)}}
+            <br>
+            {{form.news_type.label(class='form-label')}} 
+            <select {{form.news_type(class="form-control post_upcoming")}}>
+                <option value="favourite">Favourite</option> 
+                <option value="trending">Trending</option> 
+                <option value="none">None</option>                   
+            </select>
+            <br>
+            {{form.submit(class="btn btn-secondary")}}
+            <br>
+            <br>
+        </form>
+        <a href="{{url_for('post.posts')}}" class="btn btn-outline-secondary btn-small">Back</a>
+    </div>  
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+    tinymce.init({
+        selector: '#content',
+        relative_urls: false,
+        plugins: [
+            'advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality template paste textcolor codesample'
+        ],
+        imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | codesample',
+        images_upload_url: "{{ url_for('post.imageuploader')}}",
+        automatic_uploads: true,
+        images_reuse_filename: false,
+        images_upload_base_path: '/static/uploads',
+        codesample_languages: [
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'Processing', value: 'processing' },
+            { text: 'Python', value: 'python' }
+        ],
+        width: "100%",
+    });
+</script>
+<script src="{{url_for('static', filename='js/collectionSearch.js')}}"></script>
+
+
+{%endblock%}

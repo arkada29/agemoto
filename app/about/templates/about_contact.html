@@ -1,0 +1,205 @@
+{%extends "base.html"%}
+{%block content%}
+<style type="text/css">
+    .main-about-contact{
+        display: flex;
+        flex-direction: column;
+        margin-top: 3%;
+        margin-bottom: 1%;
+    }
+    .about-us{
+        width: 100%;
+        height: fit-content;
+        max-height: fit-content;
+        /* border: 1px solid rgba(0, 0, 0, 0.6); */
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 10px;
+    }
+    .about-detail{
+        position: relative;
+        flex: 50%;
+        max-width: 50%;
+        height: fit-content;
+        padding: 15px 25px;
+        box-shadow: -3px -3px 10px rgba(0, 0, 0, 0.5);
+    }
+    .about-detail h5{
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: 700;
+    }
+    .about-form{
+        position: relative;
+        flex: 50%;
+        max-width: 50%;
+        padding: 15px 25px;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+    .contact{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 3%;
+    }
+    .contact-contact{
+        position: relative;
+        flex: 50%;
+        max-width: 50%;
+        height: fit-content;
+        padding: 25px 15px 50px 25px;
+        box-shadow: 3px -3px 10px rgba(0, 0, 0, 0.5);
+    }
+    .contact-contact h5{
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: 700;
+    }
+    .contact-maps{
+        position: relative;
+        flex: 50%;
+        max-width: 50%;        
+    }
+    .email-contact{
+        position: relative;
+        top:-125px;
+        right:-800px;
+        padding: 10px 20px;
+        height: fit-content;
+        width: clamp(200px, 300px, 50%);
+        color: rgb(211,211,211);
+        background-color: #db0038;
+        border-radius: 5px;
+    }
+    .email-contact:hover{
+        cursor: pointer;
+    }
+    #googleMap{
+        width: 100%;
+        height: 300px;
+    }
+    .form-message{
+        height: 200px;
+    }
+    .keterangan{
+        font-size: 14px;
+    }
+    @media screen and (max-width:1200px) {
+        .email-contact{
+            top:-125px;
+            right:-600px;
+        }
+    }
+    @media screen and (max-width:992px) {
+        .email-contact{
+            width: 250px;
+            top: -100px;
+            left: 425px;
+        }
+    }
+    @media screen and (max-width:768px) {
+        .email-contact{
+            top: 0;
+            left: 0;
+        }
+    }
+    @media screen and (max-width:600px) {
+        .email-contact{
+            top: 0;
+            left: 0;
+        }
+    }
+</style>
+
+<div class="container">
+    {%for message in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+        {%endfor%}
+
+    <div class="main-about-contact">
+
+        <div class="about-us">
+
+            <div class="about-detail">
+                <span><h5>Siapa kami ?</h5></span>
+                <span class="keterangan">Kami adalah developer rumahan yang kebetulan punya banyak waktu 
+                    luang untuk belajar membuat website ini, jika ada saran atau kritik
+                    bisa isi form di sebelah. Terima kasih banyak.
+                </span>
+                <br><br>
+                <span><h5>Apa itu Agemoto ?</h5></span>
+                <span class="keterangan">Agemoto adalah website-blog mengenai game, anime dan technology, 
+                    dibuat seperti itu agar berbeda dan mudah-mudahan dapat bersaing dengan website
+                    serupa yang sudah besar. Semoga dengan support dari kalian kami dapat bertahan
+                    dan menjadi salah satu website besar. Terima kasih.
+                </span>
+            </div>
+
+            <div class="about-form">
+                <form action="" method="post">
+                    <span><h5>Business Form</h5></span>
+                    <span>Anda punya saran, kritik atau hal lain, silahkan isi form dibawah</span>
+                    {{contact_form.hidden_tag()}}
+                    {{contact_form.name.label(class="form-label")}}
+                    {{contact_form.name(class="form-control", placeholder="your name")}}
+                    <br>
+                    {{contact_form.email.label(class="form-label")}}
+                    {{contact_form.email(class="form-control", placeholder="your email")}}
+                    <br>
+                    {{contact_form.subject.label(class="form-label")}}
+                    {{contact_form.subject(class="form-control", placeholder="subject")}}
+                    <br>
+                    {{contact_form.telephone.label(class="form-label")}}
+                    {{contact_form.telephone(class="form-control", placeholder="+62853123456")}}
+                    <br>
+                    {{contact_form.message.label(class="form-label")}}
+                    {{contact_form.message(class="form-control form-message", placeholder="your message")}}
+                    <br>
+                    {{contact_form.submit(class="btn btn-secondary")}}
+                </form>
+            </div>
+
+        </div>
+
+        <div class="contact">
+            <div class="contact-maps">
+                <div id="googleMap"></div>
+            </div>
+
+            <div class="contact-contact">
+                <span><h5>Hubungi Kami</h5></span>
+                <span class="keterangan">+6285343435776</span>
+                <span class="keterangan">(ada soft)</span>
+                <br>
+                <br>
+                <span><h5>Alamat kami:</h5></span>
+                <span class="keterangan">Jl. Bismillah-Sukses No.8, Ngaglik, Sleman, Yogyakarta, 55581</span>
+            </div>
+
+            <div class="email-contact">
+                <h5>Email Support</h5>
+                <span class="email-contact-mail">ada-webdev@gmail.com</span>
+            </div>
+
+        </div>
+
+        <div>
+            <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div class="elfsight-app-03661bc5-cc47-4f88-b847-80a9232751a2"></div>
+        </div>
+        
+    </div>
+</div>
+
+<script src="{{url_for('static', filename='js/maps.js')}}"></script>
+<script>
+    $('.email-contact-mail').click(function(){
+        $('html,body').animate({
+        scrollTop: $(".about-form").offset().top},
+        'fast');
+    });
+    window.initMap = myMap;
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgW8OKLBWcO1zgKaePLzDTGu2wwBpQBHE&callback=myMap"></script>
+{%endblock%}

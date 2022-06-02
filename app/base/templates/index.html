@@ -1,0 +1,590 @@
+{%extends "base.html"%}
+{%block content%}
+<!-- <style>
+.bg{
+    background-image: url("{{url_for('static', filename='images/body-background-2.png')}}");
+    /* background-position: center; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+</style> -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+<div class="bg">
+
+  <div class="body-content">
+    
+    <div class="bg"></div>
+    <div class="main-content">
+      <div class='primary-news'>
+        <div class="primary-img primary-img-1">
+          {%if top_post[0].thumbnail%}
+          <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
+            <img src="{{url_for('static', filename='images/' + top_post[0].thumbnail)}}" alt="top-image-thumbnail-1" style="width: 100%;" loading="lazy">
+          </a>
+          {%else%}
+          <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
+            <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="none-thumbnail" style="width: 100%;" loading="lazy">
+          </a>
+          {%endif%}
+          <div class="primary-img-1-cover">
+            <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
+              <h3 class="h3-title">{{top_post[0].title}}</h3>
+              <h5 class="h5-subtitle">{{top_post[0].slug}}</h5>
+            </a>          
+          </div>
+        </div>
+        <div class="primary-img primary-img-2">
+          {%if top_post[1].thumnail%}
+          <a class="p" href="{{url_for('post.post', year=top_post[1].date_posted.year, id=top_post[1].id, category=top_post[1].category_post.category, name=top_post[1].title)}}">
+            <img src="{{url_for('static', filename='images/'+ top_post[1].thumbnail)}}" alt="top-image-thumbnail-2" style="width: 100%;" loading="lazy">
+          </a>
+          {%else%}
+          <a href="{{url_for('post.post', year=top_post[1].date_posted.year, id=top_post[1].id, category=top_post[1].category_post.category, name=top_post[1].title)}}">
+            <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="none-thumbnail" style="width: 100%;" loading="lazy">
+          </a>
+          {%endif%}
+          <div class="primary-img-2-cover-top">
+          <a href="{{url_for('post.post', year=top_post[1].date_posted.year, id=top_post[1].id, category=top_post[1].category_post.category, name=top_post[1].title)}}">
+            <h3 class="h3-title">{{top_post[1].title}}</h3>
+            <h5 class="h5-subtitle">{{top_post[1].slug}}</h5>
+          </a>
+          </div>
+          {%if top_post[2].thumnail%}
+          <a href="{{url_for('post.post', year=top_post[2].date_posted.year, id=top_post[2].id, category=top_post[2].category_post.category, name=top_post[2].title)}}">
+            <img src="{{url_for('static', filename='images/'+top_post[2].thumbnail)}}" alt="top-image-thumbnail-3" style="width: 100%;" loading="lazy">
+          </a>
+          {%else%}
+          <a href="{{url_for('post.post', year=top_post[2].date_posted.year, id=top_post[2].id, category=top_post[2].category_post.category, name=top_post[2].title)}}">
+            <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="none-thumbnail" style="width: 100%;" loading="lazy">
+          </a>
+          {%endif%}
+          <div class="primary-img-2-cover-bottom">
+            <a href="{{url_for('post.post', year=top_post[2].date_posted.year, id=top_post[2].id, category=top_post[2].category_post.category, name=top_post[2].title)}}">
+              <h3 class="h3-title">{{top_post[2].title}}</h3>
+              <h5 class="h5-subtitle">{{top_post[2].slug}}</h5>
+            </a>
+          </div>
+        </div>
+        <div class="primary-img primary-img-3">
+          {%if top_post[3].thumbnail%}
+          <a href="{{url_for('post.post', year=top_post[3].date_posted.year, id=top_post[3].id, category=top_post[3].category_post.category, name=top_post[3].title)}}">
+            <img src="{{url_for('static', filename='images/'+top_post[3].thumbnail)}}" alt="top-image-thumbnail-4" style="width: 100%;" loading="lazy">
+          </a>
+          {%else%}
+          <a href="{{url_for('post.post', year=top_post[3].date_posted.year, id=top_post[3].id, category=top_post[3].category_post.category, name=top_post[3].title)}}">
+            <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="none-thumbnail" style="width: 100%;" loading="lazy">
+          </a>
+          {%endif%}
+          <div class="primary-img-3-cover">
+            <a href="{{url_for('post.post', year=top_post[3].date_posted.year, id=top_post[3].id, category=top_post[3].category_post.category, name=top_post[3].title)}}">
+              <h3 class="h3-title">{{top_post[3].title}}</h3>
+              <h5 class="h5-subtitle">{{top_post[3].slug}}</h5>
+            </a>
+          </div>
+        </div>
+        
+      </div>
+
+      <div id="tv"></div>
+      
+      <div class="line-separate"></div>
+        <div class="secondary-news">              
+          <div class="upcoming">          
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active upcoming-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                  Games
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link upcoming-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                  Anime
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link upcoming-link" id="movie-tab" data-bs-toggle="tab" data-bs-target="#movie" type="button" role="tab" aria-controls="movie" aria-selected="false">
+                  Movie
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card" style="width: 18rem;">            
+                  <ul class="list-group list-group-flush upcoming-tab">
+                      {%for u in upcoming%}
+                        {%if u.id_category == 1%}
+                        <li class="list-group-item">
+                          <img src="{{url_for('static', filename='images/' + u.cover_picture)}}" alt="cover-picture" loading="lazy">
+                          <div class="upper-list">
+                            <div class="name-list">
+                              <a href="{{url_for('collection.upcoming_detail', id=u.id_upc)}}">
+                                <p> {{u.name}}</p>                            
+                                <span class="u-platform">{{u.publisher.split(',')[0]}}</span>
+                              </a>
+                            </div>  
+                            <div class="date-list">   
+                              {{u.date_released}}                     
+                            </div>
+                          </div>  
+                        </li>
+                        {%endif%}
+                      {%endfor%}
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card" style="width: 18rem;">
+                  <ul class="list-group list-group-flush upcoming-tab">
+                    {%for u in upcoming%}
+                      {%if u.id_category == 2%}
+                        <li class="list-group-item">
+                          <img src="{{url_for('static', filename='images/' + u.cover_picture)}}" alt="cover-picture" loading="lazy">
+                          <div class="upper-list">
+                            <div class="name-list">
+                              <a href="{{url_for('collection.upcoming_detail', id=u.id_upc)}}">
+                                <p> {{u.name}}</p>                            
+                                <span class="u-platform">{{u.producer.split(',')[0]}}</span>
+                              </a>
+                            </div>  
+                            <div class="date-list">   
+                              {{u.date_released}}                     
+                            </div>
+                          </div>  
+                        </li>
+                        {%endif%}
+                      {%endfor%}
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="movie" role="tabpanel" aria-labelledby="movie-tab">
+                <div class="card" style="width: 18rem;">
+                  <ul class="list-group list-group-flush upcoming-tab">
+                    {%for u in upcoming%}
+                      {%if u.id_category == 6%}
+                        <li class="list-group-item">
+                          <img src="{{url_for('static', filename='images/' + u.cover_picture)}}" alt="cover-picture" loading="lazy">
+                          <div class="upper-list">
+                            <div class="name-list">
+                              <a href="{{url_for('collection.upcoming_detail', id=u.id_upc)}}">
+                                <p> {{u.name}}</p>                            
+                                <span class="u-platform">{{u.producer.split(',')[0]}}</span>
+                              </a>
+                            </div>  
+                            <div class="date-list">   
+                              {{u.date_released}}                     
+                            </div>
+                          </div>  
+                        </li>
+                        {%endif%}
+                      {%endfor%}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="upcoming-title">
+          <div class="upcoming-title-text">
+            <p>
+              NEXT RELEASE
+            </p>            
+          </div>
+        </div>
+      </div>  
+  </div>
+  
+  <!--This goes card content-->
+  {%set top_ids = [top_post[0].id, top_post[1].id, top_post[2].id, top_post[3].id]%}
+  {%set len = 9%}
+  <div class=top-5-title>TOP 5 THIS WEEK</div>
+  <div id="card">
+    {%for p in post%}
+    {%if loop.index <= len and p.id not in top_ids%}
+    <a href="{{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}">
+      <div class="card card-top-5">
+        <div class="card-category">
+          <span>{{p.category_post.category}}</span>
+        </div>
+        {%if p.thumbnail%}
+          <img src="{{url_for('static', filename='images/' + p.thumbnail)}}" class="img-fluid rounded-start" alt="..." style="height: 100px; object-fit: cover; object-position: center;">
+          {%else%}
+          <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" class="img-fluid rounded-start" alt="..." style="width: 100%; height: 100px; object-fit: cover; object-position: center;">
+          {%endif%}
+        <div class="card-body">
+          <h5 class="card-title card-top-5-title">{{p.title}}</h5>
+          <p class="card-subtitle card-top-5-subtitle">{{p.slug}}</p>  
+        </div>
+        <div class="card-footer">
+          {% set time = p.date_posted %}
+            {% set day = now-time %}
+            {%set days = day.days%}
+            {%set seconds = day.seconds%}
+            {%set hours = seconds//3600%} 
+            {%set minutes = (seconds//60) % 60%}
+            {%set mth = rdelta(now, time) %}
+            {%if mth.years !=0%}
+            <p class="card-text card-top-5-posted">
+              <small class="">
+                <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                &nbsp;&nbsp;{{mth.years}} years
+                <img src="{{url_for('static', filename='images/chat_bubble_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                <span class="fb-comments-count" data-href="http://127.0.0.1:5000/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+              </small>
+            </p>
+            {%elif mth.months !=0%}
+            <p class="card-text card-top-5-posted">
+              <small class="">
+                <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                &nbsp;&nbsp;{{mth.months}} months
+                <img src="{{url_for('static', filename='images/chat_bubble_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                <span class="fb-comments-count" data-href="http://127.0.0.1:5000/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+              </small>
+            </p>
+            {%elif days != 0%}  
+            <p class="card-text card-top-5-posted">
+              <small class="">
+                <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                &nbsp;&nbsp;{{days}} days {{hours}} hours 
+                <img src="{{url_for('static', filename='images/chat_bubble_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                <span class="fb-comments-count" data-href="http://127.0.0.1:5000/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+              </small>
+            </p>
+            {%else%}
+            <p class="card-text card-top-5-posted">
+              <small class="">
+              <img src="{{url_for('static', filename='images/calendar_today_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              &nbsp;{{hours}} hours {{minutes}} minutes
+              <!-- <img src="{{url_for('static', filename='images/question_answer_black-2.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 1px;">
+              {%for c, j in count_query%}
+              {%if j %}
+              {%if j == p.id%}
+                {{c}}
+              {%else%}
+                0
+              {%endif%}                  
+              {%endif%}
+              {%endfor%} -->
+              <img src="{{url_for('static', filename='images/chat_bubble_white.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              <span class="fb-comments-count" data-href="http://127.0.0.1:5000/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+              </small>
+            </p>
+            {%endif%}
+        </div>
+    </a>
+  </div>
+    {%endif%}
+    {%endfor%}
+  </div>
+  
+  <!--This goes other news-->
+<div class="other-news">
+  
+  <div class="latest-news"> 
+    <div class="latest-news-title-section">
+      <img id="latest-news-title-img" src="{{url_for('static', filename='images/icons-news.svg')}}" alt="">   
+      <div class="latest-news-title">
+        REST OF THE NEWS
+      </div>  
+      <div class="latest-news-title-line"></div>
+    </div>    
+  
+    {% set len = 9%}
+    {%for p in post%}
+    {%if loop.index > len and loop.index <= 20%}
+    <div id="latest-news-content" class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-3 card-rest-news-img">
+          <div class="card-category">
+            <span>{{p.category_post.category}}</span>
+          </div>
+          {%if p.thumbnail != none%}
+          <img src="{{url_for('static', filename='images/' + p.thumbnail)}}" class="img-fluid" alt="...">
+          {%else%}
+          <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" class="img-fluid" alt="...">
+          {%endif%}
+        </div>
+        <div class="col-md-9">
+          <a href="{{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}">
+            <div class="card-body card-rest-news">
+              <p class="card-title card-rest-news-title">{{p.title}}</p>
+              <p class="card-subtitle card-rest-news-subtitle">{{p.slug}}</p>
+              {% set time = p.date_posted %}
+              {% set day = now-time %}
+              {%set days = day.days%}
+              {%set seconds = day.seconds%}
+              {%set hours = seconds//3600%} 
+              {%set minutes = (seconds//60) % 60%}
+              {%set mth = rdelta(now, time) %}
+              {%if mth.years != 0%}
+              <p class="card-text card-rest-news-posted">
+                <small class="text-muted">
+                  <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                  <span>&nbsp;{{mth.years}} years</span>                  
+                  <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                  <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                </small>
+              </p>
+              {%elif mth.months != 0%}
+              <p class="card-text card-rest-news-posted">
+                <small class="text-muted">
+                  <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                  <span>&nbsp;{{mth.months}} months</span>                  
+                  <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                  <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                </small>
+              </p>
+              {%elif days != 0%}
+              <p class="card-text card-rest-news-posted">
+                <small class="text-muted"> 
+                  <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                  <span>&nbsp;{{days}} days {{hours}} hours</span>
+                  <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                  <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                </small>
+              </p>
+              {%else%}
+              <p class="card-text card-rest-news-posted">
+                <small class="text-muted">
+                  <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                  <span>&nbsp;{{hours}} hours {{minutes}} minutes</span>
+                  &nbsp;
+                  <!-- <img src="{{url_for('static', filename='images/question_answer_black-2.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 1px;">
+                  {%for c, j in count_query%}
+                  {%if j %}
+                    {%if j == p.id%}
+                      {{c}}
+                    {%else%}
+                      0
+                    {%endif%}                  
+                  {%endif%}
+                  {%endfor%} -->
+                  <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                  <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                </small>
+              </p>
+              {%endif%}
+            </div>
+          </a>
+          
+        </div>
+      </div>
+    </div>    
+    {% elif loop.index > 20%}
+    <div id="infinite-holder">
+      <template id="post_template" >
+        <div id="latest-news-content" class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-3 card-rest-news-img">
+              <div class="card-category">
+                <span></span>
+              </div>
+              <img id="card-img" src="" class="img-fluid" alt="...">
+            </div>
+            <div class="col-md-9">              
+                <div class="card-body card-rest-news">
+                  <h5>
+                    <a class="card-title card-rest-news-title" href="{{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></a>
+                  </h5>
+                  <p class="card-subtitle card-rest-news-subtitle"></p>
+                  {% set time = p.date_posted %}
+                  {% set day = now-time %}
+                  {%set days = day.days%}
+                  {%set seconds = day.seconds%}
+                  {%set hours = seconds//3600%} 
+                  {%set minutes = (seconds//60) % 60%}
+                  {%set mth = rdelta(now, time) %}
+                  {%if mth.years !=0%}
+                  <p class="card-text card-rest-news-posted">
+                    <small class="text-muted"> 
+                      <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                      <span>&nbsp;{{mth.years}} years</span>
+                      <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                      <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                    </small>
+                  </p>
+                  {%elif mth.months !=0%}
+                  <p class="card-text card-rest-news-posted">
+                    <small class="text-muted"> 
+                      <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                      <span>&nbsp;{{mth.months}} months</span>
+                      <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                      <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                    </small>
+                  </p>
+                  {%elif days != 0%}
+                  <p class="card-text card-rest-news-posted">
+                    <small class="text-muted"> 
+                      <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                        <span>{{days}} days {{hours}} hours</span>
+                      &nbsp;
+                      <!-- <img src="{{url_for('static', filename='images/question_answer_black-2.svg')}}" alt="" style="width: 15px; height: 15px; margin-left: 3px;; margin-bottom: 1px;"> -->
+                      <!-- {%for c, j in count_query%}
+                      {%if j %}
+                        {%if j == p.id%}
+                          {{c}}
+                        {%else%}
+                          0
+                        {%endif%}                  
+                      {%endif%}
+                      {%endfor%} -->
+                      &nbsp;
+                      <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                      <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                    </small>
+                  </p>
+                  {%else%}
+                  <p class="card-text card-rest-news-posted">
+                    <small class="text-muted">
+                      <img src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 2px;">
+                      <span>{{hours}} hours {{minutes}} minutes</span>
+                      &nbsp;
+                      <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+                      <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=p.date_posted.year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+                    </small>
+                  </p>
+                  {%endif%}                  
+                </div>
+              <!-- </a>               -->
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    {%endif%}
+    {%endfor%}
+  </div>
+
+  <div class="editor-choice">
+    <div class="editor-choice-title-section">
+      <img src="{{url_for('static', filename='images/icons-trending.png')}}" alt="">
+      <div class="editor-choice-title">
+        TRENDING NOW
+      </div>
+      <div class="editor-choice-title-line"></div>
+    </div>
+    {%for e in trending%}  
+    {%set trending_year = e.date_posted.year%}  
+    <div class="editor-choice-menu">
+      <div class="editor-choice-content">
+        <a href="{{url_for('post.post', year=trending_year, id=e.id, category=e.category_post.category, name=e.title)}}">
+          <div class="editor-choice-img">
+            <span>
+              {%if e.thumbnail %}
+              <img src="{{url_for('static', filename='images/'+e.thumbnail)}}" alt="">
+              {%else%}
+              <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="">
+              {%endif%}
+            </span>
+          </div>
+          <div class="editor-choice-name">
+            <span >{{e.title}}</span>
+          </div>
+          <div class="editor-choice-slug">
+            <span>
+              {{e.slug}}
+            </span>
+          </div>
+        </a>       
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+
+</div>
+
+<div class="container load-more">
+  <button id="sentinel" class="btn btn-small btn-warning" onclick="load_more()">
+     Load More 
+  </button>
+</div>
+
+<script>
+  $(window).scroll(function(){   
+        console.log($(window).scrollTop())   
+        if($(window).scrollTop() >= 200){
+        $(".upcoming-title").css({
+          "position": "fixed",
+          "top": "0",
+          "right": "20px"
+        })
+      } else {
+        $(".upcoming-title").css({
+          "position": "fixed",
+          "top": "60px",
+          "right": "20px"
+        })
+      }  
+  })
+
+  $(".upcoming-title").click(function(){
+    $('html,body').animate({
+        scrollTop: $(".secondary-news").offset().top},
+      'fast');
+  })
+</script>
+
+<script>
+  // Get references to the dom elements
+var scroller = document.querySelector("#infinite-holder");
+var template = document.querySelector('#post_template');
+// var loaded = document.querySelector("#loaded");
+var sentinel = document.querySelector('#sentinel');
+
+// Set a counter to count the items loaded
+var counter = 0;
+
+// Function to request new items and render to the dom
+function loadItems() {
+
+  // Use fetch to request data and pass the counter value in the QS
+  fetch(`/load?c=${counter}`).then((response) => {
+
+    // Convert the response data to JSON
+    response.json().then((data) => {
+
+      // If empty JSON, exit the function
+      if (!data.length) {
+
+        // Replace the spinner with "No more posts"
+        sentinel.innerHTML = "End of the Line Folks :D";
+        return;
+      }
+
+      // Iterate over the items in the response
+      for (var i = 0; i < data.length; i++) {
+        FB.XFBML.parse(data.length[i]);
+        
+        // Clone the HTML template
+        let template_clone = template.content.cloneNode(true);
+
+        // Query & update the template content
+        template_clone.querySelector(".card-category").innerHTML = `${data[i][1]}`
+        template_clone.querySelector("#card-img").src = 'static/images/'+data[i][2] //"{{url_for('static', filename='images/' + " + data[i][2] +")}}"
+        template_clone.querySelector(".card-rest-news-title").innerHTML = data[i][3]//`${data[i][0]}: ${data[i][1]}`;
+        template_clone.querySelector(".card-rest-news-subtitle").innerHTML = data[i][4]
+        template_clone.querySelector(".card-rest-news-title").setAttribute('href','http://127.0.0.1:5002/post/'+data[i][6]+'/'
+                                                                      +data[i][5]+'/'+data[i][1]+'/'+data[i][3])
+        // console.log(data)
+
+        // Append template to dom
+        scroller.appendChild(template_clone);
+
+        // Increment the counter
+        counter += 1;
+
+        // Update the counter in the navbar
+        // loaded.innerText = `${counter} items loaded`;
+
+      }
+    })
+  })
+}
+
+function load_more(){
+  loadItems()
+}
+</script>
+
+{%endblock%}

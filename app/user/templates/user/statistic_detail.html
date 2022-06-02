@@ -1,0 +1,474 @@
+{%extends 'library.html'%}
+{%block content%}
+<style>
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    background-color: brown;
+}
+.navbar{
+    background-color: #333333;
+    margin-bottom: 1%; 
+}
+
+.navbar-brand{
+    color: white;
+    font-size: 14px;   
+}
+.navbar-brand:hover{
+    color: white;
+}
+.nav-item a{
+    color: white;
+    background-color: none;
+    margin-left: 5px;
+    background-color: none;
+    border-radius: 50%;
+    text-align: center;
+    transition: 0.5s;
+}
+.nav-item :hover{
+    color: white;
+    background-color: orangered;
+}
+
+.main-graph-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-header{
+    color: white;
+    background-color: #008080;
+    width: fit-content;
+    height: fit-content;
+    font-size: 12px;
+    padding: 2px 5px;
+    margin-left: 10px;
+}
+.graph-container{
+    position: relative;
+    flex: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.graph-post{
+    padding-bottom: 1%;
+}
+.graph-detail{
+    position: relative;
+    flex: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    margin: 5px;
+    overflow: hidden;
+}
+.graph-post-detail, .graph-upcoming-detail{
+    position: relative;
+    flex: 32%;
+    max-width: 32%;
+    height: 200px;
+    /* border: 1px solid green; */
+    background-color: rgb(105,105,105);
+    border-radius: 5px;
+    margin: 0 5px;
+}
+.custom-graph{
+    position: relative;
+    flex: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
+.upper-level{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 100%;
+    margin-bottom: 1%;
+}
+.left-label{
+    position: relative;
+    flex: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+/* .right-label{
+    position: relative;
+    flex: 50%;
+    max-width: 50%;
+    display: flex;
+    flex-direction: row;
+} */
+.label{
+    position: relative;
+    width: fit-content;
+    max-width: fit-content;
+    padding-top: 7px;
+    margin-left: 5px;
+    
+}
+.label span{
+    color: white;
+    background-color: #008080;
+    padding: 8px 5px;
+    font-size: 12px;
+}
+.custom-search{
+    position: relative;
+    width: fit-content;
+    max-width: fit-content;
+    margin-left: 10px;
+    /* flex: 80%;
+    max-width: 80%; */
+}
+
+.select-filter-box{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-top: 5px;
+}
+form{    
+    display: flex;
+    flex-direction: row;
+}
+#filter, #filter-cat{
+    position: relative;
+    overflow: hidden;
+    width: 25%;
+    max-width: 25%;
+    margin-right: 5px;
+    height: 30px;
+    font-size: 12px;
+    padding-top: 3px;
+}
+#search-1{
+    width: 15%;
+    max-width: 15%;
+    position: relative;
+    overflow: hidden;
+    margin-right: 5px;
+    height: 30px;
+}
+#search-2{
+    width: 15%;
+    max-width: 15%;
+    position: relative;
+    overflow: hidden;
+    margin-right: 5px;
+    height: 30px;
+}
+#btn-submit{
+    border-radius: 5px;
+    background-color: green;
+    border: none;
+    margin: 0px 2px;
+    width: 30px;
+    height: 30px;
+}
+#btn-close{
+    border-radius: 5px;
+    background-color: brown;
+    border: none;
+    margin: 0px 5px;
+    width: 30px;
+    height: 30px;
+}
+#btn-close img, #btn-submit img{
+    position: relative;
+    padding-bottom: 3px;
+    object-fit: cover;
+    object-position: center;
+    width: 10px;
+    height: 10px;
+}
+.middle-level{
+    flex: 100%;
+    max-width: 100%;
+    background-color: rgb(105,105,105);
+    margin-bottom: 1%;
+    margin-left: 5px;
+}
+
+canvas{
+    padding-bottom: 10px;
+}
+
+@media screen and (max-width: 992px) {
+    .graph-post-detail, .graph-upcoming-detail{
+    position: relative;
+    flex: 30%;
+    max-width: 30%;
+    }
+    .custom-search{
+        margin-left: 5px;
+    }
+    
+}
+@media screen and (max-width: 768px) {
+    .graph-post-detail, .graph-upcoming-detail{
+    position: relative;
+    flex: 48%;
+    max-width: 48%;
+    margin-bottom: 5px;
+    }
+    .left-label{
+        margin-left: 5px;
+    }
+    .label{
+        width: 150px;
+    }
+    .middle-level{
+        margin-left: 10px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .graph-post-detail, .graph-upcoming-detail{
+    position: relative;
+    flex: 100%;
+    max-width: 100%;
+    margin-bottom: 5px;
+    }
+}
+</style>
+
+<script src="{{url_for('static', filename='js/general_chart.js')}}"></script>
+<script src="{{url_for('static', filename='js/upcomingChart.js')}}"></script>
+<script src="{{url_for('static', filename='js/custom_graph.js')}}"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{url_for('user.dashboard')}}">DASHBOARD</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('post.post_list')}}">Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('collection.upcomings')}}">Upcoming</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="{{url_for('user.user_list')}}">User</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="anime">
+      <a href=""></a>
+  </div>
+
+<div class="container main-graph-container">
+    <div class="graph-container" >
+        <div class="card-header">POST GRAPH</div>
+        <div class="graph-post graph-detail">
+            <div class="graph-post-detail graph-post-year">
+                <canvas id="graph-post-year"></canvas>
+            </div>
+            <div class="graph-post-detail graph-post-month">
+                <canvas id="graph-post-month"></canvas>
+            </div>
+            <div class="graph-post-detail graph-post-day">
+                <canvas id="graph-post-day"></canvas>
+            </div>
+        </div>
+    
+        <div class="card-header">UPCOMING GRAPH</div>
+        <div class="graph-upcoming graph-detail">
+            <div class="graph-upcoming-detail graph-upcoming-year">
+                <canvas id="graph-upcoming-year"></canvas>
+            </div>
+            <div class="graph-upcoming-detail graph-upcoming-month">
+                <canvas id="graph-upcoming-month"></canvas>
+            </div>
+            <div class="graph-upcoming-detail graph-upcoming-day">
+                <canvas id="graph-upcoming-day"></canvas>
+            </div>
+        </div>    
+    </div>
+    <div class="custom-graph">
+        <div class="upper-level">
+            <div class="left-label">
+                <div class="label">
+                    <span>CUSTOM SEARCH</span>
+                </div>
+                <div class="custom-search">
+                    <div class="select-filter-box">
+                        <form method="POST" action="">
+                            
+                            <select name="filter-cat" id="filter-cat" class="form-control" data-live-search="true">
+                                <option value="" selected="selected">Select Category</option>
+                                <option value="post">Post</option>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="user">User</option>
+                            </select>
+                            <select name="filter" id="filter" class="form-control" data-live-search="true">
+                                <option value="" selected="selected">Select Filter</option>
+                                <option value="year">Year</option>
+                                <option value="month">Month</option>
+                                <option value="day">Day</option>
+                            </select>
+                            <input type="text" name="inputOne" id="search-1"  placeholder="input">
+                            <input type="text" name="inputTwo" id="search-2" placeholder="input">
+                            <button id="btn-submit" type="button"> 
+                                <img src="{{url_for('static', filename='images/done_white.svg')}}" alt="">
+                            </button>
+                            <!-- <button id="btn-close" type="button">
+                                <img src="{{url_for('static', filename='images/clear_white.svg')}}" alt="">
+                            </button>                         -->
+                        </form>
+                    </div>      
+
+                </div>
+                                
+            </div>
+            <div class="right-label">   
+                           
+            </div>
+        </div>
+        <div class="middle-level">
+            <canvas id="graph-custom-search"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<script>
+$(document).ready(function() { 
+    dailyChart({{dayLabel|safe}},{{dayData|safe}}); 
+    monthChart({{monthLabel|safe}},{{monthData|safe}});
+    yearChart({{yearLabel|safe}},{{yearData|safe}})
+
+    yearChartUpcoming({{yearLabelUpc|safe}},{{yearDataUpc|safe}});
+    monthChartUpcoming({{monthLabelUpc|safe}},{{monthDataUpc|safe}});
+    dailyChartUpcoming({{dayLabelUpc|safe}},{{dayDataUpc|safe}});
+
+});
+
+var myChart = {}
+
+$("#btn-submit").click(function(){
+//   alert("The paragraph was clicked.");
+    // customGraph([2022],[8]);
+    
+
+    var count = [];
+    var label = [];
+
+    var filter = document.getElementById("filter");
+    var filterCat = document.getElementById("filter-cat");
+    var inputOne = String(document.getElementById("search-1").value);
+    var inputTwo = String(document.getElementById("search-2").value);
+    //   var as = document.forms[0].filter.value;
+    var strFilter = filter.options[filter.selectedIndex].value;
+    var strFilterCat = filterCat.options[filterCat.selectedIndex].value;
+
+    if (strFilterCat == 'post') {
+        if (strFilter == 'year') {
+            {%for c, l in customGraphData[0]%}
+                if ({{l}} >= inputOne && {{l}} <= inputTwo){
+                    // console.log({{l}})
+                    count.push({{c}});
+                    label.push({{l}});
+                }
+            {%endfor%}
+        } else if (strFilter == 'month') {
+            {%for c, l in customGraphData[1]%}
+
+                var date = {{l.year}}+'-'+{{l.month}}+'-'+{{l.day}};
+                    
+                if (date >= inputOne && date <= inputTwo){
+                    var dateMonth = {{l.year}}+'-'+convertToMonth({{l.month}});
+                    count.push({{c}});
+                    label.push(dateMonth);
+ 
+                }
+
+            {%endfor%}
+        } else if (strFilter == 'day') {
+
+            {% for c, l in customGraphData[2] %}
+                var date = {{l.year}}+'-'+{{l.month}}+'-'+{{l.day}};
+                
+                if (date >= inputOne && date <= inputTwo ){
+                    // count.push({{c}});
+                    count.push({{c}});
+                    label.push(date);          
+                }
+
+            {% endfor %}
+        }
+        
+    } else if (strFilterCat == 'upcoming') {
+        if (strFilter == 'year') {
+            {%for c, l in customGraphData[3]%}
+                if ({{l}} >= inputOne && {{l}} <= inputTwo){
+               
+                    count.push({{c}});
+                    label.push({{l}});
+                }
+           
+            {%endfor%}
+        } else if (strFilter == 'month') {
+            {%for c, l in customGraphData[4]%}
+
+                var date = {{l.year}}+'-'+{{l.month}}+'-'+{{l.day}};
+                    console.log(date)
+                if (date >= inputOne && date <= inputTwo){
+                    var dateMonth = {{l.year}}+'-'+convertToMonth({{l.month}});
+
+                    count.push({{c}});
+                    label.push(dateMonth); 
+              
+                }
+       
+            {%endfor%}
+        } else if (strFilter == 'day') {
+
+            {% for c, l in customGraphData[5] %}
+                var date = {{l.year}}+'-'+{{l.month}}+'-'+{{l.day}};
+                
+                if (date >= inputOne && date <= inputTwo ){
+                    
+                    count.push({{c}});
+                    label.push(date);     
+
+                }
+ 
+            {% endfor %}
+        }
+        
+    }
+    customGraph(label, count);    
+});
+
+function convertToMonth(number){
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+        ];
+    
+    for (const[index, element] of monthNames.entries()){
+        if (index == number){
+            return monthNames[index-1]
+        }
+    }   
+}
+
+function convertDay(date){
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let day = new Date(date)
+    return weekday[day.getDay()]
+}
+
+</script>
+{%endblock%}
+

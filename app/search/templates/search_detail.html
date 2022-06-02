@@ -1,0 +1,207 @@
+{%extends 'base.html'%}
+{%block content%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/search_detail.css')}}">
+<div class="main-search-section">
+    <div class="search-list-section-left">
+        <div class="search">
+            <div class="select-search">
+                <select name="select-category" id="" class="select-category">
+                    <option value="all">Select</option>
+                    <option value="post">News</option>
+                    <option value="movies">Movies</option>
+                    <option value="anime">Anime</option>
+                    <option value="games">Games</option>
+                </select>
+                <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="search-search">
+                <input type="text" name="query2" id="search_text" class="form-control" placeholder="Search Agemoto">
+            </div>
+        </div>
+        <div class="search-for">
+            <span> Search for "{{search_word_detail}}"</span>
+        </div>        
+        <div class="search-list-main">           
+            {%if category == 'all'%}
+            {%for i in search_result %}
+            {%set year_all = i.date.year%}
+            {%set id = i.id%}
+            <div class="search-list-row">
+                <div class="search-column search-list-img">
+                    <span>
+                        <img src="{{url_for('static', filename='images/'+i.images)}}" alt="">
+                    </span>
+                </div>
+                <div class="search-column search-list-name">
+                    <a href="{{url_for('post.post', year=year_all, id=i.id, category=category, name=i.name)}}">
+                        <span class="sl-name">{{i.name}}</span>
+                    </a>
+                    <br>
+                    <span class="sl-date">
+                        {{i.date.strftime('%Y-%m-%d')}}
+                    </span>
+                </div>
+                <!-- <div class="search-column search-list-cat">
+                    <span>
+                        {{i.date}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-platform">
+                    <span>
+                        {{i.platform}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-det">
+                    <div class="search-list-det-icon">
+                        <a href="" class="">
+                            <span><img src="{{url_for('static', filename='images/info_white_18.svg')}}" alt=""></span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            {%endfor%}
+            {%elif category == 'post'%}
+            {%for p in search_result %}
+            {%set year_post = p.date.year%}
+            <div class="search-list-row">
+                <div class="search-column search-list-img">
+                    <span>
+                        <img src="{{url_for('static', filename='images/'+p.images)}}" alt="">
+                    </span>
+                </div>
+                <div class="search-column search-list-name">
+                    <a href="{{url_for('post.post', year=year_post, id=p.id, category=category, name=p.name)}}">
+                        <span>{{p.name}}</span>
+                    </a>
+                    <br>
+                    <span class="sl-date">
+                        {{p.date.strftime('%Y-%m-%d')}}
+                    </span>
+                </div>
+                <!-- <div class="search-column search-list-cat">
+                </div> -->
+                <!-- <div class="search-column search-list-platform">
+                    <span>
+                        {{p.platform}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-det">
+                    <div class="search-list-det-icon">
+                        <a href="" class="">
+                            <span><img src="{{url_for('static', filename='images/info_white_18.svg')}}" alt=""></span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            {%endfor%} 
+            
+            {%elif category == 'anime'%}
+            {%for a in search_result %}
+            {%set year_anime = a.date.year%}
+            <div class="search-list-row">
+                <div class="search-column search-list-img">
+                    <span>
+                        <img src="{{url_for('static', filename='images/'+a.images)}}" alt="">
+                    </span>
+                </div>
+                <div class="search-column search-list-name">
+                    <span>{{a.name}}</span>
+                    <br>
+                    <span>
+                        {{a.date.strftime('%Y-%m-%d')}}
+                    </span>
+                </div>
+                <!-- <div class="search-column search-list-cat">
+                    <span>
+                        {{a.type}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-platform">
+                    <span>
+                        {{a.platform}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-det">
+                    <div class="search-list-det-icon">
+                        <a href="" class="">
+                            <span><img src="{{url_for('static', filename='images/info_white_18.svg')}}" alt=""></span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            {%endfor%} 
+            {%elif category == 'movies'%}
+            {%for m in search_result %}
+            {%set year_movie = m.date.year%}
+            <div class="search-list-row">
+                <div class="search-column search-list-img">
+                    <span>
+                        <img src="{{url_for('static', filename='images/'+m.images)}}" alt="">
+                    </span>
+                </div>
+                <div class="search-column search-list-name">
+                    <span>{{m.name}}</span>
+                    <br>
+                    <span>
+                        {{m.date.strftime('%Y-%m-%d')}}
+                    </span>
+                </div>
+                <!-- <div class="search-column search-list-cat">
+                    <span>
+                        {{m.type}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-platform">
+                    <span>
+                        {{m.platform}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-det">
+                    <div class="search-list-det-icon">
+                        <a href="" class="">
+                            <span><img src="{{url_for('static', filename='images/info_white_18.svg')}}" alt=""></span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            {%endfor%}             
+            {%elif category == 'games'%}
+            {%for g in search_result %}
+            {%set year_games = g.date.year%}
+            <div class="search-list-row">
+                <div class="search-column search-list-img">
+                    <span>
+                        <img src="{{url_for('static', filename='images/'+g.images)}}" alt="">
+                    </span>
+                </div>
+                <div class="search-column search-list-name">
+                    <span>{{g.name}}</span>
+                    <br>
+                    <span>
+                        {{g.date.strftime('%Y-%m-%d')}}
+                    </span>
+                </div>
+                <!-- <div class="search-column search-list-cat">
+                    <span>
+                        {{g.type}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-platform">
+                    <span>
+                        {{g.platform}}
+                    </span>
+                </div> -->
+                <!-- <div class="search-column search-list-det">
+                    <div class="search-list-det-icon">
+                        <a href="" class="">
+                            <span><img src="{{url_for('static', filename='images/info_white_18.svg')}}" alt=""></span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            {%endfor%} 
+            {%endif%}
+        </div>
+    </div>
+</div>      
+{%endblock%}

@@ -1,0 +1,111 @@
+.header-title-games{
+    margin-left: 6%;
+    margin-top: 2%;
+    font-weight: bolder;
+    padding-bottom: 5px;
+    width: fit-content;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.main-window{
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    margin-left: 5%;
+    
+}
+.column-games{
+    flex: 18%;
+    max-width: 18%;
+    padding: 0px 5px;
+    margin: 0px 10px 30px 10px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: fit-content;
+
+}
+.cat-games{
+    position: absolute;
+    top: 0;
+    border-radius: 10px 5px 5px 0px;
+    background-color: orangered;
+    color: white;
+    padding: 0px 5px;
+    font-size: 12px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 550;
+    text-transform: capitalize;
+}
+.img-games img{
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+}
+.name-games{
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    font-weight: 700;
+    font-size: 14px;
+} 
+.dr-games{
+    /* max-width: 50px; */
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.7);
+}
+.pl-games{
+    /* max-width: 50px; */
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    font-size: 14px;
+    background-color: brown;
+    color: white;
+    padding: 3px 5px;
+    font-size: 9px;
+    border-radius: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.pagination{
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.page-item{
+    margin-left: 2px;
+}
+.page-item a{
+    color: white;
+    text-decoration: none;
+    /* background-color: #f40058; */
+    border-radius: 5px; 
+    padding: 2px 7px 2px 7px;
+    margin-right: 5px;
+    background-color: orangered;
+    border: 2px solid silver;
+}
+@media screen and (max-width: 992px) {
+    .column-games{
+        flex: 22%;
+        max-width: 22%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .column-games{
+        flex: 30%;
+        max-width: 30%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .column-games{
+        flex: 46%;
+        max-width: 46%;
+    }
+}

@@ -1,0 +1,220 @@
+{%extends "base.html"%}
+{%block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}">
+  <title>Document</title>
+</head>
+<body>
+  {%for message in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endfor%}
+    <br>
+  <div class="container col-md-12">
+    <div class="posts-news-title-section">
+      <div class="posts-news-title">
+        <span>
+          <i class='fa-solid fa-newspaper fa-lg' style='color: orange'>            
+          </i>
+          <strong class="">NEWS COLLECTION</strong>
+          <!-- <img src="{{url_for('static', filename='images/article_black.svg')}}" alt=""><strong> NEWS</strong> -->
+          <br>
+          <!-- <h2 style="width:fit-content; border-bottom: 1px solid rgba(0,0,0,0.2);">NEWS COLLECTION</h2> -->
+        </span>  
+      </div>
+      <!-- <div class="posts-line"></div> -->
+    </div>   
+    <div class="container main-news row">
+      {%for t in top_post%}
+      <div class="news-left column">
+        <!-- <img src="{{url_for('static', filename='uploads/adfy0174.jpg')}}" style="width:100%"> -->
+        {%set year = t.date_posted.year%}
+            <a href="{{url_for('post.post', year=year, id=t.id, category=t.category_post.category, name=t.title)}}">
+              {%if t.thumbnail != None %}
+              <img src="{{url_for('static', filename='images/' + t.thumbnail)}}" alt="" style="width: 100%;">
+              {%else%}
+              <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="" style="width: 100%;">
+              {%endif%}
+              <h3>{{t.slug}}</h3>
+            </a>
+      </div>
+      {%endfor%}    
+    </div>
+
+    <div class="middle-news">
+      {%for p in middle_post%}
+      {%set year = p.date_posted.year%}
+      <div class="middle-post-news">
+        <a href="{{url_for('post.post', year=year, id=p.id, category=p.category_post.category, name=p.title)}}">
+          <div class="middle-post-images">
+            <span>
+              {%if p.thumbnail%}
+              <img src="{{url_for('static', filename='images/'+p.thumbnail)}}" alt="">
+              {%else%}
+              <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="">
+              {%endif%}
+            </span>
+          </div>
+          <div class="middle-post-slug">
+            {%if p.slug | length > 65%}
+            <span>{{p.slug[:65]}} ...</span>
+            {%else%}
+            <span>{{p.slug}}</span>
+            {%endif%}
+          </div>
+        </a>
+      </div>
+      {%endfor%}
+    </div>
+
+    <div class="other-news-section">
+      <div class="other-news">
+        <div class="other-news-label">
+          <div class="other-news-title">
+            <img src="{{url_for('static', filename='images/newspaper_black.svg')}}" alt="">
+            <span>OTHERS</span>
+          </div>
+          <div class="other-news-line"></div>
+        </div>
+        <div class="col-lg-8">
+          {%for p in post%}
+          {% if  middle_post_id|length != 0 %}
+          {% if p.id < middle_post_id|min%}      
+        <div class="posting"><!-- shadow p-3 mb-5 bg-body rounded  -->     
+          <div class="post-thumbnail">
+            {%if p.thumbnail != None%}
+              <img src="{{url_for('static', filename='images/'+ p.thumbnail)}}" alt="" align="left">
+            {%else%}
+              <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="image thumbnail" align="left">
+            {%endif%}
+            <span class="post-category">{{p.category_post.category}}</span>
+          </div>       
+          <div class="posting-time">        
+              {%set year = p.date_posted.year%}
+              <a href="{{url_for('post.post', year=year, id=p.id, category=p.category_post.category, name=p.title)}}" class="post-title">
+                {{p.title}}
+              </a><br>
+            <span class="post-slug">{{p.slug}}</span><br>
+            <span class="post-date">
+              {% set time = p.date_posted %}
+              {% set day = now-time %}
+              {%set days = day.days%}
+              {%set seconds = day.seconds%}
+              {%set hours = seconds//3600%} 
+              {%set minutes = (seconds//60) % 60%}          
+              {%set mth = rdelta(now, time) %}
+              <!-- <i class='fa fa-clock-o' style='color: rgba(0,0,0,0.8)'></i>   -->
+              {%if mth.years != 0%}
+              <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              <span class="post-time">{{mth.years}} years </span>
+              {%elif mth.months != 0%}
+              <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              <span class="post-time">{{mth.months}} months </span>
+              {%elif days != 0%}
+              <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              <span class="post-time">{{days}} days {{hours}} hours</span>
+              {%else%}
+              <img id="icon-calendar" src="{{url_for('static', filename='images/calendar_today_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              <span class="post-time">{{hours}} hours {{minutes}} minutes</span>            
+              {%endif%}                                     
+                        <!-- {%for i, j ,k in count_query%}
+              {%if j == p.id%}
+              &nbsp;<i class='fa fa-comments-o' style='color: red'>
+                <span>
+                  {{i}}
+                </span>
+              </i>
+              {%endif%}
+              {%endfor%} -->
+              
+              <img src="{{url_for('static', filename='images/chat_bubble_outline_black.svg')}}" alt="" style="width: 14px; height: 14px; margin-bottom: 3px;">
+              <span class="fb-comments-count" data-href="http://127.0.0.1:5002/ + {{url_for('post.post', year=year, id=p.id, category=p.category_post.category, name=p.title)}}"></span>
+              <!-- &nbsp;<i class='fa fa-thumbs-o-up' style='color: rgba(0,0,0,0.8)'></i>
+                <span>
+                  &nbsp;{{p.likepost.count()}}
+                </span>             -->
+            </span>                     
+          </div>
+    
+        </div>
+        <div class="hr"></div>
+        {%else%}
+        {%endif%}
+        {%endif%}
+        {%endfor%}
+        </div>
+      </div>
+      <div class="other-news-upcoming-tab">
+        <div class="news-headline-header">
+          <span>
+            <img src="{{url_for('static', filename='images/icons-favourite.png')}}" alt="">
+          </span>
+          <span class="favourite-header">Favourite of All</span>
+          <div class="news-headline-line"></div>
+        </div>
+        {%for p in favPost%}
+        {%set year = p.date_posted.year%}
+        <div class="news-headline">
+          <a href="{{url_for('post.post', year=year, id=p.id, category=p.category_post.category, name=p.title)}}" >
+            <div class="news-headline-img">
+              {%if p.thumbnail%}
+              <img src="{{url_for('static', filename='images/'+p.thumbnail)}}" alt="">
+              {%else%}
+              <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="">
+              {%endif%}
+            </div>
+            <div class="news-headline-title">{{p.title}}</div>
+            <div class="news-headline-slug">{{p.slug}}</div>
+            <div class="news-headline-author">by {{p.poster.name}}</div>
+          </a>
+        </div>
+        {%endfor%}        
+      </div>
+    </div>
+    
+    <nav aria-label="Page navigation example" class="navigation-example">
+      <ul class="pagination pagination-sm">
+        <li class="page-item">
+          {%if prev_url%}
+          <a class="page-link" href="{{prev_url}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <!-- <span class="sr-only">Older Post</span> -->
+          </a>
+          {%endif%}
+        </li>
+        {%set i = cp // 10%}
+        {%if i >=1 and cp % 10 == 0%}      
+          {%for c in range(1,i+1)%}
+          <li class="page-item"><a class="page-link numbered" href="http://127.0.0.1:5002/posts/post_techno/technology?page={{c}}">{{c}}</a></li>
+          {%endfor%}
+        {%elif i>=1 and cp%10 != 0%}
+          {%for c in range(1,i+2)%}
+          <li class="page-item"><a class="page-link numbered" href="http://127.0.0.1:5002/posts/post_techno/technology?page={{c}}">{{c}}</a></li>
+          {%endfor%}
+        {%else%}
+          <li class="page-item"><a class="page-link numbered" href="http://127.0.0.1:5002/posts/post_techno/technology?page={{c}}">1</a></li>
+        {%endif%}
+        <li class="page-item">
+          {%if next_url%}
+          <a class="page-link" href="{{next_url}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <!-- <span class="sr-only">Newer Post</span> -->
+          </a>
+          {%endif%}
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</body>
+</html>
+<script src="{{url_for('static', filename='js/pagination.js')}}"></script>
+{%endblock%}

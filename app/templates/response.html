@@ -1,0 +1,115 @@
+<style>
+   .image-thumbnail-search{
+      width: 10%;
+      font-size: 13px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   }
+   .image-thumbnail-search img{
+      width: 60px;
+      height: 35px;
+      object-fit: cover;
+      object-position: center;
+   }
+   .union-name-link a, .union-slug-link a, .name-link a{
+      color: rgba(0,0,0,0.7);
+      font-size: 13px;
+      text-decoration: none;
+   }
+   .search-word{
+      font-size: 14px;
+      margin-top: 2%;
+      margin-left: 1%;
+   }
+   .search-word span{
+      color: #db0038;
+      padding-top: 2px;
+      font-weight: 600;
+   }
+   .platform-link{
+      font-size: 13px;
+   }
+</style>
+<div class="search-word">
+   <span>Search for "{{search_word}}" - {{numrows}} Data Found</span>
+</div>
+
+<table class="table table-striped custab">
+  <thead>
+      <tr>
+         <th>Result</th>
+      </tr>
+  </thead>
+  <tbody>
+   {%if category == 'post'%}
+   {% for post in post_as_dict %}  
+   <tr>
+      <td class="image-thumbnail-search">
+         <img src="{{url_for('static', filename='images/'+post.thumbnail)}}" alt="">
+      </td>
+      <td class="name-link">
+         <a href="">{{post.slug}}</a>
+      </td>
+      <td class="platform-link">
+         {{post.platfrom}}
+      </td>
+      <td>
+         <a href="" class="btn btn-info">
+            <span><img src="{{url_for('static', filename='images/info_white_18.svg')}}" alt=""></span>
+         </a>
+      </td>
+   </tr>
+   {% endfor %}   
+
+   {%elif category == 'movies'%}
+    {% for movie in movie_as_dict %}  
+   <tr>
+   <td class="image-thumbnail-search">
+      <img src="{{url_for('static', filename='images/'+movie.cover_picture)}}" alt="">
+   </td>
+   <td class="name-link">
+      <a href="">{{movie.name}}</a>
+   </td>
+   <td class="platform-link">
+      {{movie.platform}}
+   </td>
+   </tr>
+   {% endfor %} 
+
+   {%elif category == 'anime'%}
+    {% for anime in anime_as_dict %}  
+   <tr>
+      <td class="image-thumbnail-search">
+         <img src="{{url_for('static', filename='images/'+anime.cover_picture)}}" alt="">
+      </td>
+      <td class="name-link">
+         {{anime.name}}
+      </td>
+      <td class="platform-link">
+         {{anime.platform}}
+      </td>
+   </tr>
+   {% endfor %} 
+   
+   {%elif category == 'games'%}
+   {% for games in game_as_dict %}  
+   <tr >
+      <td class="image-thumbnail-search">
+         <img src="{{url_for('static', filename='images/'+games.cover_picture)}}" alt="">
+      </td>
+      <td class="name-link">
+         <a href="">{{games.name}}</a>
+      </td>
+      <td class="platform-link">
+         {{games.platform}}
+      </td>
+   </tr>
+   {% endfor %} 
+ 
+   {%endif%}
+   <script>
+      jQuery(document).ready(function($) {
+         $(".clickable-row").click(function() {
+         window.location = $(this).data("href");
+         });
+      });
+   </script>

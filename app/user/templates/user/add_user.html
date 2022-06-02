@@ -1,0 +1,85 @@
+{%extends "simple_main_layout.html"%}
+{%block content%}
+<style type="text/css">
+    .level{
+        display: flex;
+        flex-direction: row;
+    }
+    .enum{
+        position: relative;
+        top:8px;
+        margin-left: 10px;
+    }
+    .enum a{
+        color: black;
+    }
+</style>
+
+<div class="container">
+{%for message in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    
+{%endfor%}
+
+{%if name %}
+    <h1>User added !</h1>
+{%else%}
+    <h1>Users List: </h1>
+    <br>
+    <div class="shadow p-3 mb-5 bg-body rounded col-md-5">
+    <form method="post">
+        {{form.hidden_tag()}}
+        {{form.name.label(class='form-label')}}
+        {{form.name(class='form-control')}}
+        <br>
+        {{form.username.label(class='form-label')}}
+        {{form.username(class='form-control')}}
+        <br>
+        {{form.email.label(class='form-label')}}
+        {{form.email(class='form-control')}}
+        <br>
+        {{form.level.label(class='form-label')}}
+        <input class="form-control" id="disabledInput" type="text" placeholder= disabled>
+        <br>            
+        {{form.password_hash.label(class='form-label')}}
+        {{form.password_hash(class='form-control')}}
+        <br>
+        {{form.password_hash_match.label(class='form-label')}}
+        {{form.password_hash_match(class='form-control')}}
+        <br>
+
+        {{form.submit(class="btn btn-secondary")}}
+
+    </form>
+</div>
+
+<br><br>
+<table class="table table-hover table-bordered table-striped">
+{%for our_users in our_users%}
+<tr>
+    <td>
+        {{our_users.id}}. <a href="{{url_for('update', id=our_users.id)}}">{{our_users.name}}</a> - {{our_users.username}}
+         - {{our_users.email}} - {{our_users.fav_color}} - <br>
+         PW: {{our_users.password_hash}}
+         <a href="{{url_for('delete', id=our_users.id)}}">Delete</a>
+    </td>
+    
+</tr>
+
+<br>
+{%endfor%}
+</table>
+
+</div>
+{%endif%}
+<script type = "text/javascript">
+    function fuck(){
+        var e = document.getElementById("ddlViewBy");
+        var strUser = e.value;
+        return strUser
+    }
+</script>
+{%endblock%}

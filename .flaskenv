@@ -1,0 +1,3 @@
+FLASK_APP=agemoto.py
+FLASK_RUN_PORT=5002
+FLASK_ENV=development

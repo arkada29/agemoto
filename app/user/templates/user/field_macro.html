@@ -1,0 +1,17 @@
+{# Render form fields #}
+{% macro displayField(field, fieldName) %}
+<style type="text/css">
+    li{
+        color: darkred;
+    }
+</style>
+    <div class="form-group">
+        {{ field(class_='form-control', placeholder=fieldName, **kwargs) }}
+        <!-- Error messages -->
+        <ul class="formError">
+            {% for error in field.errors %}
+                <li class="">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}
