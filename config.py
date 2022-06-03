@@ -20,7 +20,7 @@ class Config(object):
 
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
     #     "mysql+pymysql://root:rootpass@localhost/db_agemoto" 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '')\
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace\
         ('postgres://', 'postgresql://') or "mysql+pymysql://root:rootpass@localhost/db_agemoto"
 
     POSTS_PER_PAGE = 10
