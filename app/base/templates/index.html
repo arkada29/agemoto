@@ -17,16 +17,17 @@
     <div class="bg"></div>
     <div class="main-content">
       <div class='primary-news'>
+        {%if top_post%}
         <div class="primary-img primary-img-1">
-          {%if top_post[0].thumbnail%}
-          <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
-            <img src="{{url_for('static', filename='images/' + top_post[0].thumbnail)}}" alt="top-image-thumbnail-1" style="width: 100%;" loading="lazy">
-          </a>
-          {%else%}
-          <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
-            <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="none-thumbnail" style="width: 100%;" loading="lazy">
-          </a>
-          {%endif%}
+            {%if top_post[0].thumbnail%}
+            <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
+              <img src="{{url_for('static', filename='images/' + top_post[0].thumbnail)}}" alt="top-image-thumbnail-1" style="width: 100%;" loading="lazy">
+            </a>
+            {%else%}
+            <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
+              <img src="{{url_for('static', filename='images/none-thumbnail.png')}}" alt="none-thumbnail" style="width: 100%;" loading="lazy">
+            </a>
+            {%endif%}
           <div class="primary-img-1-cover">
             <a href="{{url_for('post.post', year=top_post[0].date_posted.year, id=top_post[0].id, category=top_post[0].category_post.category, name=top_post[0].title)}}">
               <h3 class="h3-title">{{top_post[0].title}}</h3>
@@ -35,7 +36,7 @@
           </div>
         </div>
         <div class="primary-img primary-img-2">
-          {%if top_post[1].thumnail%}
+          {%if top_post[1].thumbnail%}
           <a class="p" href="{{url_for('post.post', year=top_post[1].date_posted.year, id=top_post[1].id, category=top_post[1].category_post.category, name=top_post[1].title)}}">
             <img src="{{url_for('static', filename='images/'+ top_post[1].thumbnail)}}" alt="top-image-thumbnail-2" style="width: 100%;" loading="lazy">
           </a>
@@ -50,7 +51,7 @@
             <h5 class="h5-subtitle">{{top_post[1].slug}}</h5>
           </a>
           </div>
-          {%if top_post[2].thumnail%}
+          {%if top_post[2].thumbnail%}
           <a href="{{url_for('post.post', year=top_post[2].date_posted.year, id=top_post[2].id, category=top_post[2].category_post.category, name=top_post[2].title)}}">
             <img src="{{url_for('static', filename='images/'+top_post[2].thumbnail)}}" alt="top-image-thumbnail-3" style="width: 100%;" loading="lazy">
           </a>
@@ -83,7 +84,8 @@
             </a>
           </div>
         </div>
-        
+      {%else%}
+      {%endif%}
       </div>
 
       <div id="tv"></div>
@@ -196,6 +198,7 @@
   </div>
   
   <!--This goes card content-->
+  {%if top_post%}
   {%set top_ids = [top_post[0].id, top_post[1].id, top_post[2].id, top_post[3].id]%}
   {%set len = 9%}
   <div class=top-5-title>TOP 5 THIS WEEK</div>
@@ -276,6 +279,7 @@
   </div>
     {%endif%}
     {%endfor%}
+    {%endif%}
   </div>
   
   <!--This goes other news-->
