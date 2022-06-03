@@ -27,7 +27,7 @@ app = create_app()
 flow = Flow.from_client_secrets_file(
         client_secrets_file=app.config['CLIENT_SECRETS_FILE'],
         scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-        redirect_uri="http://127.0.0.1:5002/callback" )
+        redirect_uri="https://agemoto.herokuapp.com/callback" )
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -69,7 +69,7 @@ def login():
     return render_template("/user/login.html", form1=form1, name=name, our_users=our_users)   
 
 @bp.route('/register', methods=['POST','GET'])
-@login_required
+# @login_required
 def register():
     form = UserForm()
     if form.validate_on_submit():       
