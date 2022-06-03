@@ -20,8 +20,9 @@ class Config(object):
 
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
     #     "mysql+pymysql://root:rootpass@localhost/db_agemoto" 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace\
-        ('postgres://', 'postgresql://') or "mysql+pymysql://root:rootpass@localhost/db_agemoto"
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace\
+    #     ('postgres://', 'postgresql://') or "mysql+pymysql://root:rootpass@localhost/db_agemoto"
+    SQLALCHEMY_DATABASE_URI = "postgresql://zfnyvtzbitsiuw:7695ee86b21842b132dca61c892cc28c0d35aba09c630c1cd3851b546c17ad51@ec2-44-196-174-238.compute-1.amazonaws.com:5432/d286vnurg9r5hm"
 
     POSTS_PER_PAGE = 10
     POSTS_PER_PAGE_UPCOMINGS = 50
