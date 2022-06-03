@@ -38,8 +38,8 @@ def create_app(config_class=Config):
     app = Flask(__name__)    
 
     db.init_app(app)
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
 
     migrate.init_app(app,db)    
     share.init_app(app)    
