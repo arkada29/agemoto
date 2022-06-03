@@ -1,1 +1,1 @@
-web: gunicorn agemoto:app
+web: flask db upgrade; gunicorn agemoto:app

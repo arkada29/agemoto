@@ -1,0 +1,107 @@
+2022-06-03 10:51:27,732 ERROR: Exception on / [GET] [in C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py:1458]
+Traceback (most recent call last):
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1803, in _execute_context
+    cursor, statement, parameters, context
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: posts
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\base\routes.py", line 24, in page_root
+    top_post = Posts.query.order_by(Posts.date_posted.desc()).limit(4).all()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\orm\query.py", line 2759, in all
+    return self._iter().all()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\orm\query.py", line 2897, in _iter
+    execution_options={"_sa_orm_load_options": self.load_options},
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\orm\session.py", line 1692, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1614, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\sql\elements.py", line 326, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1491, in _execute_clauseelement
+    cache_hit=cache_hit,
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    e, statement, parameters, cursor, context
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 2027, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\util\compat.py", line 207, in raise_
+    raise exception
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1803, in _execute_context
+    cursor, statement, parameters, context
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: posts
+[SQL: SELECT posts.id AS posts_id, posts.title AS posts_title, posts.content AS posts_content, posts.date_posted AS posts_date_posted, posts.slug AS posts_slug, posts.description AS posts_description, posts.thumbnail AS posts_thumbnail, posts.platfrom AS posts_platfrom, posts.language AS posts_language, posts.tags AS posts_tags, posts.news_type AS posts_news_type, posts.post_id AS posts_post_id, posts.category_id AS posts_category_id, posts.upc_id AS posts_upc_id, posts.updated AS posts_updated 
+FROM posts ORDER BY posts.date_posted DESC
+ LIMIT ? OFFSET ?]
+[parameters: (4, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-06-03 10:51:27,732 ERROR: Exception on / [GET] [in C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py:1458]
+Traceback (most recent call last):
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1803, in _execute_context
+    cursor, statement, parameters, context
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: posts
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\base\routes.py", line 24, in page_root
+    top_post = Posts.query.order_by(Posts.date_posted.desc()).limit(4).all()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\orm\query.py", line 2759, in all
+    return self._iter().all()
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\orm\query.py", line 2897, in _iter
+    execution_options={"_sa_orm_load_options": self.load_options},
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\orm\session.py", line 1692, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1614, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\sql\elements.py", line 326, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1491, in _execute_clauseelement
+    cache_hit=cache_hit,
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    e, statement, parameters, cursor, context
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 2027, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\util\compat.py", line 207, in raise_
+    raise exception
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1803, in _execute_context
+    cursor, statement, parameters, context
+  File "C:\Users\aruka\Documents\Python\Python-Code\Flask\flask-venv\lib\site-packages\sqlalchemy\engine\default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: posts
+[SQL: SELECT posts.id AS posts_id, posts.title AS posts_title, posts.content AS posts_content, posts.date_posted AS posts_date_posted, posts.slug AS posts_slug, posts.description AS posts_description, posts.thumbnail AS posts_thumbnail, posts.platfrom AS posts_platfrom, posts.language AS posts_language, posts.tags AS posts_tags, posts.news_type AS posts_news_type, posts.post_id AS posts_post_id, posts.category_id AS posts_category_id, posts.upc_id AS posts_upc_id, posts.updated AS posts_updated 
+FROM posts ORDER BY posts.date_posted DESC
+ LIMIT ? OFFSET ?]
+[parameters: (4, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-06-03 10:51:51,383 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,383 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,383 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,414 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,414 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,414 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,430 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,430 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
+2022-06-03 10:51:51,430 INFO: Agemoto startup [in C:\Users\aruka\Documents\Python\Python-Code\Flask\agemoto\app\__init__.py:110]
