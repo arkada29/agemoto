@@ -28,8 +28,6 @@ login_manager.login_view = 'user.login'
 login_manager.login_message = _l('Please log in to access this page.')
 babel = Babel()
 
-
-
 mail = Mail()
 
 basedir = Path(__file__).parent
@@ -40,6 +38,9 @@ def create_app(config_class=Config):
     app = Flask(__name__)    
 
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
     migrate.init_app(app,db)    
     share.init_app(app)    
     login_manager.init_app(app)
